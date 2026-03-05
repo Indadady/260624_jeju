@@ -314,7 +314,7 @@
                             <div class="relative pl-8 border-l-2 border-orange-200">
                                 <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-teal-500"></div>
                                 <h4 class="font-bold text-lg">석식(회정식) 및 숙소 체크인</h4>
-                                <p class="text-slate-500 text-sm mt-1">싱싱한 해산물로 저녁 식사 후 에어시티호텔(2인실) 체크인</p>
+                                <p class="text-slate-500 text-sm mt-1">싱싱한 해산물로 저녁 식사 후 아시아호텔(2인실) 체크인</p>
                             </div>
                             <div class="bg-slate-50 p-4 rounded-lg mt-4 border border-slate-200 text-sm">
                                 🏨 <strong>석식 후 자유시간 및 휴식</strong>
@@ -368,7 +368,7 @@
                                 <p class="text-slate-500 text-sm mt-1">제주에 오면 빠질 수 없는 흑돼지 구이로 든든한 저녁 만찬</p>
                             </div>
                             <div class="bg-slate-50 p-4 rounded-lg mt-4 border border-slate-200 text-sm">
-                                🏨 <strong>숙소(에어시티호텔) 복귀 후 자유시간</strong>
+                                🏨 <strong>숙소(아시아호텔) 복귀 후 자유시간</strong>
                             </div>
                         </div>
                     </div>
@@ -528,7 +528,7 @@
         <div class="border-b-2 border-black pb-4 mb-6 text-center">
             <h1 class="text-2xl font-bold text-center mb-2 font-title">[정선군청] 2026 어린이집 보육교직원 워크숍 일정표</h1>
             <p class="text-center text-sm text-gray-600">※ 본 일정표는 항공 및 현지 사정에 따라 다소 변경될 수 있습니다.</p>
-            <p class="text-center text-xs font-bold text-gray-700 mt-2">숙소: 에어시티호텔 (2인실) 기준</p>
+            <p class="text-center text-xs font-bold text-gray-700 mt-2">숙소: 아시아호텔 (2인실) 기준</p>
         </div>
         
         <table class="w-full text-[12px] border-collapse border border-gray-400 mb-6">
@@ -709,7 +709,7 @@
                 jejuAirport: [33.5104, 126.4913],
                 daycare: [33.4739, 126.4588],   // 행복한나무어린이집 인근
                 dodubong: [33.5076, 126.4670],  // 도두봉
-                aircity: [33.4854, 126.4968],   // 에어시티호텔 (제주시 연동)
+                asiaHotel: [33.4886, 126.4958], // 아시아호텔 (제주시 연동)
                 saryeoni: [33.4035, 126.6441],  // 사려니숲길
                 ojori: [33.4651, 126.9150],     // 오조리포구
                 railbike: [33.4532, 126.8530],  // 레일바이크
@@ -739,8 +739,8 @@
                 airport: createMarkerObj(spots.jejuAirport, '제주국제공항', '#f97316', '✈️'),
                 daycare: createMarkerObj(spots.daycare, '행복한나무어린이집', '#3b82f6', '🏫'),
                 dodubong: createMarkerObj(spots.dodubong, '도두봉', '#3b82f6', '🌊'),
-                hotel1: createMarkerObj(spots.aircity, '에어시티호텔', '#14b8a6', '🏨'),
-                hotel2: createMarkerObj(spots.aircity, '에어시티호텔', '#14b8a6', '🏨'),
+                hotel1: createMarkerObj(spots.asiaHotel, '아시아호텔', '#14b8a6', '🏨'),
+                hotel2: createMarkerObj(spots.asiaHotel, '아시아호텔', '#14b8a6', '🏨'),
                 saryeoni: createMarkerObj(spots.saryeoni, '사려니숲길', '#22c55e', '🌲'),
                 ojori: createMarkerObj(spots.ojori, '오조리포구', '#22c55e', '📸'),
                 railbike: createMarkerObj(spots.railbike, '레일바이크', '#22c55e', '🛤️'),
@@ -751,9 +751,9 @@
 
             // Paths
             const paths = {
-                day1: L.polyline([spots.jejuAirport, spots.daycare, spots.dodubong, spots.aircity], { color: '#f97316', weight: 4, opacity: 0.8 }),
-                day2: L.polyline([spots.aircity, spots.saryeoni, spots.ojori, spots.railbike, spots.samyang, spots.aircity], { color: '#3b82f6', weight: 4, opacity: 0.8 }),
-                day3: L.polyline([spots.aircity, spots.songdang, spots.watershow, spots.jejuAirport], { color: '#22c55e', weight: 4, opacity: 0.8, dashArray: '5,5' })
+                day1: L.polyline([spots.jejuAirport, spots.daycare, spots.dodubong, spots.asiaHotel], { color: '#f97316', weight: 4, opacity: 0.8 }),
+                day2: L.polyline([spots.asiaHotel, spots.saryeoni, spots.ojori, spots.railbike, spots.samyang, spots.asiaHotel], { color: '#3b82f6', weight: 4, opacity: 0.8 }),
+                day3: L.polyline([spots.asiaHotel, spots.songdang, spots.watershow, spots.jejuAirport], { color: '#22c55e', weight: 4, opacity: 0.8, dashArray: '5,5' })
             };
 
             dayLayers = {
@@ -787,9 +787,9 @@
             } else {
                 dayLayers[day].addTo(currentMap);
                 let daySpots = [];
-                if(day === 'day1') daySpots = [allSpots.jejuAirport, allSpots.daycare, allSpots.dodubong, allSpots.aircity];
-                if(day === 'day2') daySpots = [allSpots.aircity, allSpots.saryeoni, allSpots.ojori, allSpots.railbike, allSpots.samyang];
-                if(day === 'day3') daySpots = [allSpots.aircity, allSpots.songdang, allSpots.watershow, allSpots.jejuAirport];
+                if(day === 'day1') daySpots = [allSpots.jejuAirport, allSpots.daycare, allSpots.dodubong, allSpots.asiaHotel];
+                if(day === 'day2') daySpots = [allSpots.asiaHotel, allSpots.saryeoni, allSpots.ojori, allSpots.railbike, allSpots.samyang];
+                if(day === 'day3') daySpots = [allSpots.asiaHotel, allSpots.songdang, allSpots.watershow, allSpots.jejuAirport];
                 
                 currentMap.fitBounds(L.latLngBounds(daySpots), { padding: [50, 50] });
             }
