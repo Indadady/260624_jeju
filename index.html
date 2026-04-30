@@ -14,7 +14,7 @@
       gtag('config', 'G-JLH9GD9SVR');
     </script>
 
-    <!-- SEO & Open Graph (요청하신 고화질 풍경 사진 적용) -->
+    <!-- SEO & Open Graph -->
     <meta name="description" content="아이들의 내일을 밝히는 정선의 원동력! 보육교직원 힐링 워크숍 스마트 가이드북">
     <meta property="og:title" content="🌴 [정선군청] 2026 어린이집 보육교직원 워크숍">
     <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/e/ee/Seongsan_Ilchulbong_1.jpg">
@@ -32,53 +32,50 @@
         body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; color: #1e293b; }
         .font-title { font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.025em; }
         
-        /* 🏞️ 배경 이미지 고화질 사진으로 교체 완료 */
+        /* 🏞️ 배경 이미지 */
         .hero-bg { 
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.pexels.com/photos/30966649/pexels-photo-30966649/free-photo-of-aerial-view-of-coastal-town-on-jeju-island.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2');
             background-size: cover; background-position: center; background-attachment: fixed;
             background-repeat: no-repeat;
         }
         @media (max-width: 768px){ .hero-bg { background-attachment: scroll; } }
-        #map { height: 500px; width: 100%; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        #map { height: 500px; width: 100%; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); z-index: 10;}
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         section { scroll-margin-top: 80px; }
         
-        /* Map Customization */
+        /* Map Marker Animation */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
         .custom-icon div {
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: all 0.3s;
             border: 2.5px solid white;
         }
-        .custom-icon div:hover {
-            transform: scale(1.2) translateY(-5px);
-            z-index: 1000;
-        }
 
-        /* 🗺️ 동선 애니메이션 스피드 조절 (기존 3.5s -> 8s로 더 느리고 부드럽게) */
-        .animated-path {
-            stroke-dasharray: 4000; /* 충분히 긴 길이 */
-            stroke-dashoffset: 4000;
-            animation: drawPath 8s cubic-bezier(0.4, 0, 0.2, 1) forwards; 
-        }
-        @keyframes drawPath {
-            0% { stroke-dashoffset: 4000; }
-            100% { stroke-dashoffset: 0; }
-        }
-
-        /* 🖨️ A4 용지 인쇄용 특수 CSS */
+        /* 🖨️ A4 용지 인쇄용 특수 CSS (투어메이커 표준 양식) */
         @media print {
-            @page { size: A4 portrait; margin: 12mm; }
+            @page { size: A4 portrait; margin: 10mm; }
             body { background: white !important; margin: 0; padding: 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            th { background-color: #e5e7eb !important; }
-            td.bg-gray-100 { background-color: #f3f4f6 !important; }
+            .print\:hidden { display: none !important; }
+            .print\:flex { display: flex !important; }
+            table td, table th { word-break: keep-all; padding: 6px !important; }
         }
         
         /* 날씨 위젯 가로 스크롤 그림자 효과 */
         .weather-scroll-fade {
             -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
             mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        }
+
+        /* 체크리스트 체크 시 취소선 애니메이션 */
+        input:checked + span {
+            text-decoration: line-through;
+            color: #94a3b8;
+            transition: all 0.3s ease;
         }
     </style>
 </head>
@@ -101,14 +98,14 @@
             <div class="flex-1 overflow-x-auto no-scrollbar ml-4 md:ml-6">
                 <div class="flex items-center space-x-1 md:space-x-6 whitespace-nowrap pr-4">
                     <a href="#home" class="px-3 py-2 text-sm font-bold text-slate-600 hover:text-orange-600 hover:bg-slate-50 rounded-lg transition-colors">홈</a>
+                    <a href="#highlights" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-orange-600 hover:bg-slate-50 rounded-lg transition-colors">포인트</a>
                     <a href="#about-jeju" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-orange-600 hover:bg-slate-50 rounded-lg transition-colors">제주소개</a>
-                    <a href="#weather-outfit" class="px-3 py-2 text-sm font-bold text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors"><i class="fa-solid fa-cloud-sun-rain mr-1 text-blue-400"></i>날씨/옷차림</a>
-                    <a href="#highlights" class="px-3 py-2 text-sm font-bold text-orange-600 hover:text-orange-800 hover:bg-orange-50 rounded-lg transition-colors"><i class="fa-solid fa-star mr-1 text-yellow-400"></i>포인트</a>
                     <a href="#map-section" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-orange-600 hover:bg-slate-50 rounded-lg transition-colors">여행동선</a>
                     <a href="#schedule" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-orange-600 hover:bg-slate-50 rounded-lg transition-colors">세부일정</a>
                     <a href="#video" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-orange-600 hover:bg-slate-50 rounded-lg transition-colors">영상자료</a>
+                    <a href="#weather-outfit" class="px-3 py-2 text-sm font-bold text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors"><i class="fa-solid fa-cloud-sun-rain mr-1 text-blue-400"></i>날씨/옷차림</a>
+                    <a href="#toolkit" class="px-3 py-2 text-sm font-bold text-purple-600 hover:text-purple-800 hover:bg-purple-50 rounded-lg transition-colors"><i class="fa-solid fa-suitcase-rolling mr-1"></i>준비물/메모</a>
                     <a href="#emergency-plan" class="px-3 py-2 text-sm font-bold text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-colors"><i class="fa-solid fa-phone-volume mr-1"></i>비상연락망</a>
-                    <a href="#esg-dashboard" class="px-3 py-2 text-sm font-medium text-emerald-600 hover:text-emerald-800 hover:bg-emerald-50 rounded-lg transition-colors"><i class="fa-solid fa-leaf mr-1"></i>ESG</a>
                 </div>
             </div>
 
@@ -116,7 +113,7 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- 1. Hero Section -->
     <section id="home" class="hero-bg min-h-[65vh] flex items-center justify-center text-center px-4">
         <div class="animate-fade-in-up text-white">
             <div class="bg-white/95 backdrop-blur px-5 py-2.5 rounded-full inline-flex items-center gap-2 mb-6 border border-white/20 shadow-xl text-slate-800">
@@ -140,8 +137,8 @@
         </div>
     </section>
 
-    <!-- Highlights Section -->
-    <section id="highlights" class="py-16 bg-white -mt-10 rounded-t-[3rem] relative z-10 shadow-[0_-15px_40px_rgba(0,0,0,0.15)]">
+    <!-- 2. Highlights Section -->
+    <section id="highlights" class="py-16 bg-white relative -mt-10 rounded-t-[3rem] z-10 shadow-[0_-15px_40px_rgba(0,0,0,0.15)]">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
                 <span class="text-orange-500 font-black tracking-[0.2em] text-xs uppercase">Workshop Points</span>
@@ -173,8 +170,8 @@
         </div>
     </section>
 
-    <!-- About Jeju Section -->
-    <section id="about-jeju" class="py-16 bg-white border-t border-slate-100">
+    <!-- 3. 복원된 환영문구 (제주 소개) -->
+    <section id="about-jeju" class="py-16 bg-slate-50 border-t border-slate-100">
         <div class="container mx-auto px-4">
             <div class="flex flex-col lg:flex-row items-center gap-12 max-w-6xl mx-auto">
                 <div class="lg:w-1/2 relative">
@@ -194,79 +191,19 @@
                         에메랄드빛 바다와 검은 현무암, 그리고 사계절 푸른 숲을 품고 있는 생명의 섬 제주. 일상의 치열함에서 잠시 벗어나, 자연이 빚어낸 경이로운 풍경 속에서 온전한 쉼을 경험해 보세요.
                     </p>
                     <p class="text-slate-600 leading-relaxed text-justify">
-                        이번 정선군 보육교직원 워크숍은 아이들에게 따뜻한 내일을 선물하기 위해 애쓰신 선생님들을 위한 재충전의 여정입니다. 한라산의 맑은 공기와 제주의 넉겁한 인심이 선생님들의 몸과 마음에 깊은 힐링을 선사할 것입니다.
+                        이번 정선군 보육교직원 워크숍은 아이들에게 따뜻한 내일을 선물하기 위해 애쓰신 선생님들을 위한 재충전의 여정입니다. 한라산의 맑은 공기와 제주의 넉넉한 인심이 선생님들의 몸과 마음에 깊은 힐링을 선사할 것입니다.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Weather & Outfit Section (API 연동 적용) -->
-    <section id="weather-outfit" class="py-16 bg-blue-50/50 border-t border-slate-100 relative">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-10">
-                <span class="text-blue-500 font-black tracking-widest text-xs uppercase">Weather & Outfit</span>
-                <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mt-2 font-title">실시간 주간 날씨 & 옷차림 가이드</h2>
-                <p class="text-slate-500 text-sm mt-2">행사 1주일 전부터 현지 날씨가 정확히 예보됩니다.</p>
-            </div>
-            
-            <div class="max-w-4xl mx-auto bg-white rounded-[2.5rem] shadow-lg border border-slate-100 overflow-hidden">
-                <!-- 🌦️ 실시간 날씨 위젯 영역 -->
-                <div class="bg-slate-800 p-6 text-white relative">
-                    <div class="flex items-center justify-between mb-4 px-2">
-                        <div class="font-bold text-sm"><i class="fa-solid fa-location-dot text-blue-400 mr-2"></i>제주특별자치도 현재 예보</div>
-                        <div class="text-xs text-slate-400">Open-Meteo API</div>
-                    </div>
-                    
-                    <div class="weather-scroll-fade">
-                        <div id="weather-widget" class="flex overflow-x-auto gap-4 pb-2 pt-1 px-4 no-scrollbar">
-                            <!-- JS로 데이터가 주입되는 공간 (로딩 스켈레톤) -->
-                            <div class="min-w-[100px] flex justify-center py-4"><i class="fa-solid fa-spinner fa-spin text-2xl text-slate-500"></i></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 👕 옷차림 가이드 영역 -->
-                <div class="p-8 grid grid-cols-1 sm:grid-cols-2 gap-6 bg-white">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center shrink-0 text-xl"><i class="fa-solid fa-shirt"></i></div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 mb-1">기본 옷차림 (초여름 기준)</h4>
-                            <p class="text-sm text-slate-500">통기성이 좋은 <b>반팔, 얇은 긴팔, 린넨 소재</b>의 편안한 옷을 추천합니다.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center shrink-0 text-xl"><i class="fa-solid fa-wind"></i></div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 mb-1">바람막이/가디건</h4>
-                            <p class="text-sm text-slate-500">냉방이 강한 실내나 저녁 바닷바람에 대비해 <b>가벼운 겉옷</b>은 필수입니다.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center shrink-0 text-xl"><i class="fa-solid fa-shoe-prints"></i></div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 mb-1">편안한 신발</h4>
-                            <p class="text-sm text-slate-500">오름, 숲길, 해안가 산책 일정이 있으므로 <b>발이 편한 운동화</b>를 꼭 챙겨주세요.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center shrink-0 text-xl"><i class="fa-solid fa-umbrella"></i></div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 mb-1">필수 소지품</h4>
-                            <p class="text-sm text-slate-500">강한 햇빛을 가릴 <b>모자, 선글라스, 자외선 차단제</b>와 비상용 <b>작은 우산(우비)</b>.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Map Section -->
-    <section id="map-section" class="py-16 bg-slate-50 border-t border-slate-100">
+    <!-- 4. Map Section (최적화 5원칙 반영) -->
+    <section id="map-section" class="py-16 bg-white border-t border-slate-100">
         <div class="container mx-auto px-4">
             <div class="text-center mb-10">
                 <h2 class="text-3xl font-bold text-slate-800 font-title tracking-tight">한눈에 보는 여행 동선</h2>
-                <p class="text-slate-500 mt-2 text-sm italic">제주시와 서부, 동부를 아우르는 최적의 힐링 루트</p>
+                <p class="text-slate-500 mt-2 text-sm italic">마커에 마우스를 올리면 장소명을 확인할 수 있습니다.</p>
             </div>
 
             <div class="flex flex-wrap justify-center gap-2 mb-8">
@@ -276,23 +213,23 @@
                 <button onclick="filterMap('day3')" id="btn-map-day3" class="map-btn px-6 py-2 rounded-full text-sm font-bold bg-white border border-slate-200 text-slate-600 hover:bg-green-50 transition-all">3일차</button>
             </div>
 
-            <div class="max-w-5xl mx-auto border-8 border-white rounded-[2.5rem] shadow-2xl overflow-hidden bg-white relative">
+            <div class="max-w-5xl mx-auto border-8 border-slate-100 rounded-[2.5rem] shadow-xl overflow-hidden bg-white relative z-10">
                 <div id="map"></div>
                 <!-- 오버레이 안내 뱃지 -->
                 <div class="absolute top-4 left-4 z-[400] bg-white/90 backdrop-blur px-3 py-1.5 rounded-xl shadow font-bold text-xs text-slate-700 pointer-events-none">
-                    <i class="fa-solid fa-plane-departure text-orange-500 mr-1"></i> 동선 로딩 중...
+                    <i class="fa-solid fa-map-location-dot text-orange-500 mr-1"></i> 동선 렌더링 중...
                 </div>
             </div>
             <div class="max-w-5xl mx-auto mt-6 flex flex-wrap justify-center gap-6 text-[11px] font-bold text-slate-500">
-                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#f97316]"></span>1일차(인사이트/도심야경)</div>
-                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#3b82f6]"></span>2일차(서부/힐링/자연)</div>
-                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#22c55e]"></span>3일차(동부/숲/작별)</div>
+                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#f97316]"></span>1일차(공항/도심/야경)</div>
+                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#3b82f6]"></span>2일차(서부/해안/자연)</div>
+                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#22c55e]"></span>3일차(동부/숲길/복귀)</div>
             </div>
         </div>
     </section>
 
-    <!-- Detailed Schedule Section -->
-    <section id="schedule" class="py-16 bg-white border-t border-slate-100">
+    <!-- 5. Detailed Schedule Section -->
+    <section id="schedule" class="py-16 bg-slate-50 border-t border-slate-100">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-10">
@@ -311,7 +248,7 @@
 
                 <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden">
                     <!-- Day 1 -->
-                    <div id="day1" class="tab-content animate-fade-in-up p-8 md:p-12 bg-slate-50">
+                    <div id="day1" class="tab-content animate-fade-in-up p-8 md:p-12">
                         <div class="flex items-center gap-5 mb-10">
                             <span class="text-5xl bg-orange-100 p-4 rounded-3xl">✈️</span>
                             <div>
@@ -332,24 +269,29 @@
                             </div>
                             <div class="relative pl-10 border-l-2 border-orange-200">
                                 <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-teal-500 border-4 border-white shadow-sm"></div>
+                                <h4 class="font-bold text-xl text-slate-800">이호테우말등대 & 도두봉 산책</h4>
+                                <p class="text-slate-500 text-sm mt-1">제주 바다의 정취를 느끼는 가벼운 산책</p>
+                            </div>
+                            <div class="relative pl-10 border-l-2 border-orange-200">
+                                <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-purple-500 border-4 border-white shadow-sm"></div>
                                 <h4 class="font-bold text-xl text-slate-800">어린이집 방문 및 벤치마킹 (17:00)</h4>
-                                <p class="text-slate-500 text-sm mt-1">우수 보육 시설 시찰 및 교류의 시간 (약 1시간 진행)</p>
+                                <p class="text-slate-500 text-sm mt-1">우수 보육 시설인 제주보듬이나눔이어린이집 방문 (약 1시간)</p>
                             </div>
                             <div class="relative pl-10">
-                                <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-purple-500 border-4 border-white shadow-sm"></div>
+                                <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-red-500 border-4 border-white shadow-sm"></div>
                                 <h4 class="font-bold text-xl text-slate-800">수목원야시장 & 석식(회정식)</h4>
-                                <p class="text-slate-500 text-sm mt-1">제주의 밤문화를 즐기고, 신선한 회정식(19:30) 후 숙소(아시아호텔) 체크인</p>
+                                <p class="text-slate-500 text-sm mt-1">수목원야시장 관람 및 신선한 회정식(19:30) 후 아시아호텔 체크인</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Day 2 -->
-                    <div id="day2" class="tab-content hidden animate-fade-in-up p-8 md:p-12 bg-slate-50">
+                    <div id="day2" class="tab-content hidden animate-fade-in-up p-8 md:p-12">
                         <div class="flex items-center gap-5 mb-10">
                             <span class="text-5xl bg-blue-100 p-4 rounded-3xl">🌊</span>
                             <div>
                                 <h3 class="font-black text-2xl text-slate-800">색채와 자연의 하모니</h3>
-                                <p class="text-blue-600 font-bold text-sm italic">노형수퍼마켓 → 사계해안 → 안덕계곡 → 카멜리아힐</p>
+                                <p class="text-blue-600 font-bold text-sm italic">노형수퍼마켓 → 해안도로 → 안덕계곡 → 카멜리아힐</p>
                             </div>
                         </div>
                         <div class="space-y-8">
@@ -361,17 +303,22 @@
                             <div class="relative pl-10 border-l-2 border-blue-200">
                                 <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-blue-400 border-4 border-white shadow-sm"></div>
                                 <h4 class="font-bold text-xl text-slate-800">해안도로 드라이브 및 사계해안</h4>
-                                <p class="text-slate-500 text-sm mt-1">서부 해안도로와 형제섬이 보이는 사계해안의 절경 감상</p>
+                                <p class="text-slate-500 text-sm mt-1">한수리방파제-신창풍차해안도로-수월봉을 거쳐 사계해안 절경 감상</p>
+                            </div>
+                            <div class="relative pl-10 border-l-2 border-blue-200">
+                                <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-orange-400 border-4 border-white shadow-sm"></div>
+                                <h4 class="font-bold text-xl text-slate-800">중식: 갈치조림+고등어구이</h4>
+                                <p class="text-slate-500 text-sm mt-1">제주 서부에서 맛보는 매콤한 갈치조림과 고소한 고등어구이</p>
                             </div>
                             <div class="relative pl-10 border-l-2 border-blue-200">
                                 <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-teal-500 border-4 border-white shadow-sm"></div>
                                 <h4 class="font-bold text-xl text-slate-800">안덕계곡 탐방</h4>
-                                <p class="text-slate-500 text-sm mt-1">울창한 상록수림과 기암절벽이 어우러진 신비로운 계곡 힐링 산책</p>
+                                <p class="text-slate-500 text-sm mt-1">울창한 상록수림과 기암절벽이 어우러진 신비로운 계곡 산책</p>
                             </div>
                             <div class="relative pl-10 border-l-2 border-blue-200">
                                 <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-green-500 border-4 border-white shadow-sm"></div>
                                 <h4 class="font-bold text-xl text-slate-800">군산오름 & 카멜리아힐</h4>
-                                <p class="text-slate-500 text-sm mt-1">탁 트인 조망의 오름을 걷고, 제주의 대표 수목원 카멜리아힐 산책</p>
+                                <p class="text-slate-500 text-sm mt-1">가볍게 오르는 오름 산책과 제주의 아름다운 숲 카멜리아힐 관람</p>
                             </div>
                             <div class="relative pl-10">
                                 <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-red-600 border-4 border-white shadow-sm"></div>
@@ -382,7 +329,7 @@
                     </div>
 
                     <!-- Day 3 -->
-                    <div id="day3" class="tab-content hidden animate-fade-in-up p-8 md:p-12 bg-slate-50">
+                    <div id="day3" class="tab-content hidden animate-fade-in-up p-8 md:p-12">
                         <div class="flex items-center gap-5 mb-10">
                             <span class="text-5xl bg-teal-100 p-4 rounded-3xl">🍵</span>
                             <div>
@@ -392,19 +339,24 @@
                         </div>
                         <div class="space-y-8">
                             <div class="relative pl-10 border-l-2 border-teal-200">
+                                <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-yellow-500 border-4 border-white shadow-sm"></div>
+                                <h4 class="font-bold text-xl text-slate-800">기상 및 조식, 농수산쇼핑센타</h4>
+                                <p class="text-slate-500 text-sm mt-1">호텔식 조식 후 제주 특산품을 만날 수 있는 쇼핑센터 방문</p>
+                            </div>
+                            <div class="relative pl-10 border-l-2 border-teal-200">
                                 <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-green-600 border-4 border-white shadow-sm"></div>
                                 <h4 class="font-bold text-xl text-slate-800">사려니숲길 산책 및 녹차동굴</h4>
-                                <p class="text-slate-500 text-sm mt-1">곧게 뻗은 삼나무 숲길 산책과 인생샷 명소 녹차동굴 방문</p>
+                                <p class="text-slate-500 text-sm mt-1">곧게 뻗은 삼나무 숲길 산책과 신비로운 녹차동굴 방문</p>
                             </div>
                             <div class="relative pl-10 border-l-2 border-teal-200">
                                 <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-teal-500 border-4 border-white shadow-sm"></div>
                                 <h4 class="font-bold text-xl text-slate-800">녹차 족욕 체험</h4>
-                                <p class="text-slate-500 text-sm mt-1">피로를 녹이는 따뜻한 족욕 힐링 타임</p>
+                                <p class="text-slate-500 text-sm mt-1">따뜻한 족욕으로 여행의 피로를 녹이는 힐링 타임</p>
                             </div>
                             <div class="relative pl-10 border-l-2 border-teal-200">
                                 <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-orange-400 border-4 border-white shadow-sm"></div>
                                 <h4 class="font-bold text-xl text-slate-800">중식: 토종닭 샤브샤브</h4>
-                                <p class="text-slate-500 text-sm mt-1">여행의 마무리를 든든하게 채워주는 제주 토종닭 보양식</p>
+                                <p class="text-slate-500 text-sm mt-1">여정의 마무리를 든든하게 채워주는 제주 토종닭 보양식</p>
                             </div>
                             <div class="relative pl-10">
                                 <div class="absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-blue-600 border-4 border-white shadow-sm"></div>
@@ -418,7 +370,7 @@
         </div>
     </section>
 
-    <!-- Video Section -->
+    <!-- 6. Video Section -->
     <section id="video" class="py-24 bg-slate-900 relative overflow-hidden">
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-12 text-white">
@@ -427,42 +379,172 @@
             </div>
             <div class="max-w-4xl mx-auto">
                 <div class="aspect-video rounded-[2.5rem] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.6)] border border-slate-700">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/pNflw8gEAoU?rel=0" title="Jeju Promo Video" frameborder="0" allowfullscreen></iframe>
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/pNflw8gEAoU?rel=0&controls=1" title="Jeju Promo Video" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Emergency Contact Section -->
-    <section id="emergency-plan" class="py-20 bg-white">
+    <!-- 7. Weather & Outfit Section -->
+    <section id="weather-outfit" class="py-16 bg-blue-50/50 border-t border-blue-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-10">
+                <span class="text-blue-500 font-black tracking-widest text-xs uppercase">Weather & Outfit</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mt-2 font-title">현지 주간 날씨 & 옷차림 가이드</h2>
+                <p class="text-slate-500 text-sm mt-2">행사 1주일 전부터 현지 날씨가 정확히 예보됩니다.</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto bg-white rounded-[2.5rem] shadow-lg border border-slate-100 overflow-hidden">
+                <!-- 🌦️ 실시간 날씨 위젯 영역 -->
+                <div class="bg-slate-800 p-6 text-white relative">
+                    <div class="flex items-center justify-between mb-4 px-2">
+                        <div class="font-bold text-sm"><i class="fa-solid fa-location-dot text-blue-400 mr-2"></i>제주특별자치도 현재 예보</div>
+                        <div class="text-xs text-slate-400">Open-Meteo API</div>
+                    </div>
+                    
+                    <div class="weather-scroll-fade">
+                        <div id="weather-widget" class="flex overflow-x-auto gap-4 pb-2 pt-1 px-4 no-scrollbar">
+                            <div class="min-w-[100px] flex justify-center py-4 w-full"><i class="fa-solid fa-spinner fa-spin text-2xl text-slate-500"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 👕 옷차림 가이드 영역 -->
+                <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6 bg-white">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center shrink-0 text-xl"><i class="fa-solid fa-shirt"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 mb-1">기본 옷차림 (초여름 기준)</h4>
+                            <p class="text-sm text-slate-500">통기성이 좋은 <b>반팔, 얇은 긴팔, 린넨 소재</b>의 편안한 활동복을 추천합니다.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center shrink-0 text-xl"><i class="fa-solid fa-wind"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 mb-1">현지기후/실내에어컨 반영 맞춤 옷차림</h4>
+                            <p class="text-sm text-slate-500">냉방이 강한 실내(미디어아트, 식당 등)나 바닷바람에 대비해 <b>가벼운 바람막이나 가디건</b>은 필수입니다.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center shrink-0 text-xl"><i class="fa-solid fa-shoe-prints"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 mb-1">편안한 신발</h4>
+                            <p class="text-sm text-slate-500">사려니숲길, 오름 등 걷는 일정이 포함되어 있으므로 <b>발이 편한 운동화</b>를 꼭 챙겨주세요.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center shrink-0 text-xl"><i class="fa-solid fa-umbrella"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 mb-1">자외선 및 우천 대비</h4>
+                            <p class="text-sm text-slate-500">강한 햇빛을 피할 <b>모자, 선글라스, 썬크림</b>과 비상용 <b>작은 우산</b>을 준비해 주세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Smart Toolkit (Checklist & Memo) -->
+    <section id="toolkit" class="py-16 bg-white border-t border-slate-100">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="text-center mb-10">
+                <span class="text-purple-500 font-black tracking-widest text-xs uppercase">Smart Toolkit</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mt-2 font-title">스마트 체크리스트 & 벤치마킹 메모장</h2>
+                <p class="text-slate-500 text-sm mt-2">완벽한 출발 준비와 현장 기록을 위한 도구입니다.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Checklist -->
+                <div class="bg-slate-50 rounded-3xl p-6 lg:p-8 shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-800 mb-5 flex items-center gap-2"><i class="fa-solid fa-clipboard-check text-purple-500"></i> 제주 여행 필수 준비물</h3>
+                    
+                    <div class="space-y-5">
+                        <!-- Category 1 -->
+                        <div>
+                            <h4 class="text-sm font-black text-slate-800 mb-3 border-b-2 border-slate-200 pb-2">필수 지참 항목</h4>
+                            <label class="flex items-start gap-3 p-2 hover:bg-white rounded-lg cursor-pointer transition">
+                                <input type="checkbox" class="w-5 h-5 mt-0.5 accent-purple-500 rounded border-slate-300">
+                                <span class="text-sm text-slate-700 font-medium">신분증 (모바일 신분증 또는 주민등록증/운전면허증 필수)</span>
+                            </label>
+                            <label class="flex items-start gap-3 p-2 hover:bg-white rounded-lg cursor-pointer transition">
+                                <input type="checkbox" class="w-5 h-5 mt-0.5 accent-purple-500 rounded border-slate-300">
+                                <span class="text-sm text-slate-700 font-medium">개인 신용/체크카드 (모바일 페이 포함)</span>
+                            </label>
+                        </div>
+                        
+                        <!-- Category 2 -->
+                        <div>
+                            <h4 class="text-sm font-black text-slate-800 mb-3 border-b-2 border-slate-200 pb-2">개인 용품 및 상비약</h4>
+                            <label class="flex items-start gap-3 p-2 hover:bg-white rounded-lg cursor-pointer transition">
+                                <input type="checkbox" class="w-5 h-5 mt-0.5 accent-purple-500 rounded border-slate-300">
+                                <span class="text-sm text-slate-700 font-medium">개인 세면도구 및 화장품 (스킨케어, 썬크림 등)</span>
+                            </label>
+                            <label class="flex items-start gap-3 p-2 hover:bg-white rounded-lg cursor-pointer transition">
+                                <input type="checkbox" class="w-5 h-5 mt-0.5 accent-purple-500 rounded border-slate-300">
+                                <span class="text-sm text-slate-700 font-medium">개인 복용 약 및 비상약 (멀미약, 진통제 등)</span>
+                            </label>
+                            <label class="flex items-start gap-3 p-2 hover:bg-white rounded-lg cursor-pointer transition">
+                                <input type="checkbox" class="w-5 h-5 mt-0.5 accent-purple-500 rounded border-slate-300">
+                                <span class="text-sm text-slate-700 font-medium">보조 배터리 및 스마트폰 충전기</span>
+                            </label>
+                        </div>
+
+                        <!-- Category 3 -->
+                        <div>
+                            <h4 class="text-sm font-black text-slate-800 mb-3 border-b-2 border-slate-200 pb-2">의류 및 잡화</h4>
+                            <label class="flex items-start gap-3 p-2 hover:bg-white rounded-lg cursor-pointer transition">
+                                <input type="checkbox" class="w-5 h-5 mt-0.5 accent-purple-500 rounded border-slate-300">
+                                <span class="text-sm text-slate-700 font-medium">가벼운 겉옷 (바람막이/가디건)</span>
+                            </label>
+                            <label class="flex items-start gap-3 p-2 hover:bg-white rounded-lg cursor-pointer transition">
+                                <input type="checkbox" class="w-5 h-5 mt-0.5 accent-purple-500 rounded border-slate-300">
+                                <span class="text-sm text-slate-700 font-medium">모자 및 선글라스 (자외선 차단용)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memo -->
+                <div class="bg-yellow-50 rounded-3xl p-6 lg:p-8 shadow-sm border border-yellow-200 flex flex-col">
+                    <h3 class="font-bold text-lg text-slate-800 mb-2 flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-yellow-600"></i> 현장 메모장</h3>
+                    <p class="text-xs text-yellow-700 mb-4">* 작성하신 내용은 앱 종료 시 초기화되니 중요한 내용은 화면을 캡처해 주세요.</p>
+                    
+                    <textarea class="w-full flex-1 min-h-[280px] p-5 rounded-2xl border border-yellow-300 bg-white/70 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white resize-none text-slate-700 placeholder-slate-400 text-sm leading-relaxed" placeholder="✔ 어린이집 벤치마킹 중 메모할 사항&#10;✔ 여행 중 떠오른 보육 아이디어&#10;✔ 함께 나눌 이야기 등 자유롭게 기록해 보세요."></textarea>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Emergency Contact Section -->
+    <section id="emergency-plan" class="py-20 bg-slate-50 border-t border-slate-100">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-slate-800 font-title">🚨 비상 연락망</h2>
-                <p class="text-sm text-slate-500 mt-2">워크숍 기간 동안 불편함이 없도록 투어메이커가 정성껏 모시겠습니다.</p>
+                <p class="text-sm text-slate-500 mt-2">안전하고 편안한 벤치마킹 워크숍을 위해 투어메이커가 함께합니다.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100 flex flex-col items-center text-center group hover:bg-orange-50 transition-all duration-300">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-5 shadow-sm group-hover:scale-110 transition-transform">
+                <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 flex flex-col items-center text-center group hover:bg-orange-50 transition-all duration-300">
+                    <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-5 shadow-sm group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-user-tie text-orange-600 text-2xl"></i>
                     </div>
                     <h4 class="font-bold text-xl text-slate-800">투어메이커 총괄 대표</h4>
-                    <p class="text-sm text-slate-500 mt-1 mb-5">워크숍 총괄 기획 및 안전 관리</p>
+                    <p class="text-sm text-slate-500 mt-1 mb-5">워크숍 기획 및 총괄 관리</p>
                     <a href="tel:010-9443-7881" class="bg-orange-600 text-white px-8 py-3 rounded-xl font-bold shadow-md hover:bg-orange-700 transition">이재명 대표: 010-9443-7881</a>
                 </div>
-                <div class="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100 flex flex-col items-center text-center group hover:bg-teal-50 transition-all duration-300">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-5 shadow-sm group-hover:scale-110 transition-transform">
+                <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 flex flex-col items-center text-center group hover:bg-teal-50 transition-all duration-300">
+                    <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-5 shadow-sm group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-map-location-dot text-teal-600 text-2xl"></i>
                     </div>
-                    <h4 class="font-bold text-xl text-slate-800">제주 현장 총괄</h4>
-                    <p class="text-sm text-slate-500 mt-1 mb-5">현지 행사 밀착 가이드 및 안내</p>
+                    <h4 class="font-bold text-xl text-slate-800">제주 현장 지원</h4>
+                    <p class="text-sm text-slate-500 mt-1 mb-5">주요 현지 일정 코디네이팅 및 비상 대기</p>
                     <a href="tel:010-2645-7524" class="bg-teal-600 text-white px-8 py-3 rounded-xl font-bold shadow-md hover:bg-teal-700 transition">문정희 실장: 010-2645-7524</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 🌳 ESG 실천 대시보드 (맨 하단 위치, 1인당 수치 적용) -->
+    <!-- 10. 🌳 ESG 실천 대시보드 -->
     <section id="esg-dashboard" class="py-16 bg-emerald-50 border-t border-emerald-100">
         <div class="container mx-auto px-4">
             <div class="text-center mb-10">
@@ -491,13 +573,13 @@
 
             <div class="max-w-4xl mx-auto bg-emerald-600 text-white rounded-2xl p-6 text-center shadow-lg border border-emerald-700">
                 <p class="text-sm md:text-base font-medium leading-relaxed">
-                    본 행사는 스마트 가이드북 도입을 통해 참여 인원(18명) 비례 <strong class="text-yellow-300 text-lg">약 1그루</strong>의 나무를 심는 효과를 거두었으며, 디지털 전환(DX)을 통한 공공부문 에너지 절약 실천의 모범 사례입니다.
+                    본 행사는 종이 인쇄물을 대체하는 스마트 가이드북 도입을 통해 자원 낭비를 막고 탄소 배출을 줄이는 효과를 거두었으며, 디지털 전환(DX)을 통한 공공부문 에너지 절약 실천의 모범 사례입니다.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- 11. Footer -->
     <footer style="background-color: #f8f9fa; padding: 40px 0; text-align: center;">
         <div class="container mx-auto px-4">
             <div class="flex flex-col items-center justify-center mb-6">
@@ -508,110 +590,124 @@
                     </div>
                 </a>
             </div>
-            <p style="font-size: 13px; color: #6c757d; font-weight: normal; margin: 0 auto; line-height: 1.6; max-width: 600px;">
+            <p style="font-size: 12px; color: #6c757d; font-weight: normal; margin: 0 auto; line-height: 1.6; max-width: 600px;">
                 [System Powered by TOURMAKER] 본 스마트 가이드북은 **정선군청 가족행복과**의 기획과 <a href="http://tourmaker.kr" target="_blank" style="font-weight: bold; color: #6c757d; text-decoration: underline; text-underline-offset: 2px;">투어메이커</a>의 트래블 테크 기술 제휴로 제작되었습니다.
-            </p>
-            <p style="font-size: 10px; color: #adb5bd; margin-top: 15px; letter-spacing: 0.05em; text-transform: uppercase;">
-                &copy; 2026 Tourmaker Inc. All rights reserved.
             </p>
         </div>
     </footer>
 
     </div>
 
-    <!-- 🖨️ 인쇄용 A4 레이아웃 (유지) -->
-    <div id="print-layout" class="hidden print:flex flex-col h-[260mm] w-full bg-white text-black mx-auto p-4 box-border">
+    <!-- 🖨️ 인쇄용 A4 레이아웃 (투어메이커 표준 결재 서류용 양식) -->
+    <div id="print-layout" class="hidden print:flex flex-col h-[260mm] w-full bg-white text-black mx-auto box-border">
         <!-- Header -->
-        <div class="border-b-4 border-black pb-4 mb-4 text-center shrink-0">
+        <div class="border-b-4 border-black pb-3 mb-3 text-center shrink-0">
             <h1 class="text-3xl font-black text-center mb-2">[정선군청] 2026 보육교직원 워크숍 일정표</h1>
             <p class="text-sm text-gray-600 font-bold tracking-widest uppercase italic">2026. 06. 22 - 06. 24 | Jeju Healing Workshop</p>
         </div>
-        <div class="mb-4 flex justify-between text-sm font-bold shrink-0 px-2">
-            <span>■ 인원: 18명 (정선군청 가족행복과)</span>
+        <div class="mb-3 flex justify-between text-sm font-bold shrink-0 px-1">
+            <span>■ 대상: 정선군청 가족행복과 보육교직원</span>
             <span>■ 숙소: 아시아호텔 (2인 1실)</span>
         </div>
         
-        <!-- Table -->
+        <!-- Table (비율: 11% / 75% / 14%) -->
         <div class="flex-grow flex flex-col">
-            <table class="w-full h-full border-collapse border-2 border-black text-sm">
+            <table class="w-full h-full border-collapse border-2 border-black text-[13px]" style="table-layout: fixed;">
                 <thead>
                     <tr class="bg-gray-200 text-center font-black h-10">
-                        <th class="border-2 border-black w-20">일자</th>
-                        <th class="border-2 border-black w-24">시간</th>
-                        <th class="border-2 border-black">상세 일정</th>
-                        <th class="border-2 border-black w-24">식사</th>
+                        <th class="border-2 border-black" style="width: 11%;">일자/시간</th>
+                        <th class="border-2 border-black" style="width: 75%;">상세 일정</th>
+                        <th class="border-2 border-black" style="width: 14%;">식사</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="border-2 border-black text-center font-black bg-gray-100">1일차<br>6/22(월)</td>
-                        <td class="border-2 border-black text-center font-bold">11:15 원주발<br>12:30 제주착</td>
-                        <td class="border-2 border-black p-4 leading-loose text-[15px]">
-                            <ul class="list-disc pl-5 space-y-2 font-medium">
-                                <li>원주공항 도착/탑승수속 및 제주 도착/가이드 미팅</li>
-                                <li>중식(흑우불고기정식)</li>
-                                <li>이호테우말등대 & 도두봉 산책</li>
-                                <li><span class="font-black text-black">17:00 어린이집 방문 벤치마킹 (약 1시간)</span></li>
-                                <li>수목원야시장 구경 및 석식(회정식, 19:30)</li>
-                                <li>숙소 도착 및 체크인</li>
+                        <td class="border-2 border-black text-center font-black bg-gray-50 leading-relaxed">
+                            <span class="text-[14px]">1일차<br>6/22(월)</span><br><br>
+                            <span class="font-bold text-xs">11:15출발<br>12:30도착</span>
+                        </td>
+                        <td class="border-2 border-black p-3 leading-relaxed">
+                            <ul class="space-y-2 font-medium" style="list-style-type: none; padding-left: 0;">
+                                <li>■ 원주공항 도착/탑승수속 및 제주 도착/가이드 미팅</li>
+                                <li>■ 중식(흑우불고기정식)</li>
+                                <li>■ 이호테우말등대 & 도두봉 산책</li>
+                                <li><span class="font-black" style="color:#004098;">■ 17:00 제주보듬이나눔이어린이집 방문 벤치마킹 (약 1시간)</span></li>
+                                <li>■ 수목원야시장 구경 및 석식(회정식, 19:30)</li>
+                                <li>■ 숙소 도착 및 체크인</li>
                             </ul>
                         </td>
-                        <td class="border-2 border-black text-center font-bold leading-relaxed">중: 흑우불고기<br>석: 회정식</td>
+                        <td class="border-2 border-black text-center font-bold">
+                            <div class="flex flex-col justify-center h-full gap-4">
+                                <div><span class="bg-gray-200 px-2 py-0.5 rounded text-xs">중식</span><br>흑우불고기</div>
+                                <div><span class="bg-gray-200 px-2 py-0.5 rounded text-xs">석식</span><br>회정식</div>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
-                        <td class="border-2 border-black text-center font-black bg-gray-100">2일차<br>6/23(화)</td>
-                        <td class="border-2 border-black text-center font-bold">오전<br>~<br>오후</td>
-                        <td class="border-2 border-black p-4 leading-loose text-[15px]">
-                            <ul class="list-disc pl-5 space-y-2 font-medium">
-                                <li>기상 및 조식 후 관광 출발</li>
-                                <li><span class="font-black text-black">노형수퍼마켓(미디어아트)</span> 관람</li>
-                                <li>한수리방파제 - 신창풍차해안도로 - 수월봉 해안 절경</li>
-                                <li><span class="font-black text-black">사계해안</span> 탐방</li>
-                                <li>중식(갈치조림+고등어구이, 사계 인근)</li>
-                                <li><span class="font-black text-black">안덕계곡</span> 산책</li>
-                                <li>군산오름 및 카멜리아힐 산책</li>
-                                <li>석식(흑돼지구이) 후 숙소 도착 및 자유시간</li>
+                        <td class="border-2 border-black text-center font-black bg-gray-50 leading-relaxed">
+                            <span class="text-[14px]">2일차<br>6/23(화)</span><br><br>
+                            <span class="font-bold text-xs">전일<br>일정</span>
+                        </td>
+                        <td class="border-2 border-black p-3 leading-relaxed">
+                            <ul class="space-y-2 font-medium" style="list-style-type: none; padding-left: 0;">
+                                <li>■ 기상 및 조식 후 관광 출발</li>
+                                <li><span class="font-black" style="color:#004098;">■ 노형수퍼마켓(미디어아트) 관람</span></li>
+                                <li>■ 한수리방파제 - 신창풍차해안도로 - 수월봉 해안 절경</li>
+                                <li>■ 사계해안 탐방 및 중식(갈치조림+고등어구이)</li>
+                                <li><span class="font-black" style="color:#004098;">■ 안덕계곡 산책</span></li>
+                                <li>■ 군산오름 및 카멜리아힐 산책</li>
+                                <li>■ 석식(흑돼지구이) 후 숙소 도착 및 자유시간</li>
                             </ul>
                         </td>
-                        <td class="border-2 border-black text-center font-bold leading-relaxed">조: 호텔식<br>중: 갈치조림<br>석: 흑돼지</td>
+                        <td class="border-2 border-black text-center font-bold">
+                            <div class="flex flex-col justify-center h-full gap-4">
+                                <div><span class="bg-gray-200 px-2 py-0.5 rounded text-xs">조식</span><br>호텔식</div>
+                                <div><span class="bg-gray-200 px-2 py-0.5 rounded text-xs">중식</span><br>갈치/고등어</div>
+                                <div><span class="bg-gray-200 px-2 py-0.5 rounded text-xs">석식</span><br>흑돼지</div>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
-                        <td class="border-2 border-black text-center font-black bg-gray-100">3일차<br>6/24(수)</td>
-                        <td class="border-2 border-black text-center font-bold">15:20 제주발<br>16:35 원주착</td>
-                        <td class="border-2 border-black p-4 leading-loose text-[15px]">
-                            <ul class="list-disc pl-5 space-y-2 font-medium">
-                                <li>기상 및 조식 후 농수산쇼핑센타 방문</li>
-                                <li><span class="font-black text-black">사려니숲길</span> 산책</li>
-                                <li><span class="font-black text-black">녹차동굴 방문 및 녹차 족욕 체험</span></li>
-                                <li>중식(토종닭 샤브샤브) 후 공항 이동</li>
-                                <li>14:00 제주공항 탑승수속 및 15:20 원주행 탑승</li>
+                        <td class="border-2 border-black text-center font-black bg-gray-50 leading-relaxed">
+                            <span class="text-[14px]">3일차<br>6/24(수)</span><br><br>
+                            <span class="font-bold text-xs">15:20출발<br>16:35도착</span>
+                        </td>
+                        <td class="border-2 border-black p-3 leading-relaxed">
+                            <ul class="space-y-2 font-medium" style="list-style-type: none; padding-left: 0;">
+                                <li>■ 기상 및 조식 후 농수산쇼핑센타 방문</li>
+                                <li><span class="font-black" style="color:#004098;">■ 사려니숲길 산책</span></li>
+                                <li><span class="font-black" style="color:#004098;">■ 녹차동굴 방문 및 녹차 족욕 체험</span></li>
+                                <li>■ 중식(토종닭 샤브샤브) 후 공항 이동</li>
+                                <li>■ 14:00 제주공항 탑승수속 및 15:20 원주행 탑승</li>
                             </ul>
                         </td>
-                        <td class="border-2 border-black text-center font-bold leading-relaxed">조: 호텔식<br>중: 토종닭샤브</td>
+                        <td class="border-2 border-black text-center font-bold">
+                            <div class="flex flex-col justify-center h-full gap-4">
+                                <div><span class="bg-gray-200 px-2 py-0.5 rounded text-xs">조식</span><br>호텔식</div>
+                                <div><span class="bg-gray-200 px-2 py-0.5 rounded text-xs">중식</span><br>토종닭</div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         
         <!-- Footer -->
-        <div class="mt-6 pt-4 border-t-2 border-gray-400 flex justify-between items-center shrink-0">
+        <div class="mt-4 pt-2 flex justify-between items-center shrink-0">
             <div class="flex items-center gap-2">
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHfgIX70O5k6Anuo0UgALIdaG9jSga9auHu3uyz0uEirylGPAJnjN_qQbvEGMUvPqUQf_g9FMNUHRxlDcUBf4vZ3Mpy4TnA9WxbmzWYK11gt2zuy_Irl4wctNFjcjLyPo0GPXV792o_J7L9guRMuDfeC1gy7USwywjYbECZgzcsHybuGRRAXAnO1eNmP8/s320/logo.png" style="height: 20px;">
-                <span class="text-xs font-black text-gray-600 tracking-tighter">TOURMAKER INC. DIGITAL SMART GUIDE</span>
             </div>
-            <p class="text-xs text-gray-500 font-medium italic">본 일정표는 기상 및 현지 상황에 따라 변경될 수 있습니다.</p>
+            <p class="text-xs text-gray-500 font-bold tracking-tight">[System Powered by TOURMAKER]</p>
         </div>
     </div>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // ☀️ 날씨 API 연동 로직 (Open-Meteo)
+        // ☀️ 날씨 API 연동 (Open-Meteo)
         async function fetchWeather() {
-            const lat = 33.4996; // 제주 위도
-            const lon = 126.5312; // 제주 경도
+            const lat = 33.4996; const lon = 126.5312;
             const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FSeoul`;
-
             const widget = document.getElementById('weather-widget');
             
             try {
@@ -619,8 +715,7 @@
                 const data = await res.json();
                 renderWeather(data.daily, widget);
             } catch (e) {
-                // API 호출 실패 시 방어(Fallback) 로직
-                widget.innerHTML = `<div class="p-4 text-center w-full text-slate-400 text-sm">실시간 날씨 정보를 불러오지 못했습니다. 행사일이 다가오면 다시 확인해주세요.</div>`;
+                widget.innerHTML = `<div class="p-4 text-center w-full text-slate-400 text-sm">실시간 날씨 정보를 불러오지 못했습니다.</div>`;
             }
         }
 
@@ -628,7 +723,6 @@
             let html = '';
             const days = ['일', '월', '화', '수', '목', '금', '토'];
 
-            // WMO 날씨 코드를 직관적인 아이콘과 텍스트로 매핑
             const wmoCodeToIcon = (code) => {
                 if (code === 0) return { icon: 'fa-sun text-yellow-400', text: '맑음' };
                 if (code === 1 || code === 2) return { icon: 'fa-cloud-sun text-slate-300', text: '구름조금' };
@@ -641,8 +735,7 @@
             };
 
             for (let i = 0; i < 7; i++) {
-                const dateStr = daily.time[i];
-                const d = new Date(dateStr);
+                const d = new Date(daily.time[i]);
                 const dayName = days[d.getDay()];
                 const monthDate = `${d.getMonth()+1}/${d.getDate()}`;
                 const max = Math.round(daily.temperature_2m_max[i]);
@@ -669,11 +762,10 @@
             container.innerHTML = html;
         }
 
-        // 🗓️ 3단계 D-Day 분기 처리 로직 (행사 전 / 행사 중 / 행사 후)
+        // 🗓️ 3단계 D-Day 분기 처리 로직
         document.addEventListener('DOMContentLoaded', () => {
-            // DOM이 로드되면 날씨 데이터 즉시 호출
             fetchWeather();
-
+            
             const today = new Date();
             today.setHours(0,0,0,0);
             
@@ -684,7 +776,7 @@
             const heroMainTitle = document.getElementById('hero-main-title');
             const heroSubTitle = document.getElementById('hero-sub-title');
             const heroDates = document.getElementById('hero-dates');
-            const orgName = "정선군청";
+            const orgName = "정선군청 보육교직원";
 
             if (today < start) {
                 const diff = Math.ceil((start - today) / (1000 * 60 * 60 * 24));
@@ -696,7 +788,7 @@
                 badge.className = "bg-orange-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold animate-pulse ml-1 inline-block";
                 
                 heroMainTitle.innerHTML = `현재 <span class="text-yellow-400">${orgName}</span>의<br><span class="text-white">${currentDay}일차 여정</span>이 활기차게 진행되고 있습니다.`;
-                heroSubTitle.textContent = "안전하고 행복한 여정을 투어메이커가 함께합니다.";
+                heroSubTitle.textContent = "편안하고 알찬 벤치마킹을 투어메이커가 지원합니다.";
             } else {
                 badge.textContent = `🏁 여정 종료`;
                 badge.className = "bg-slate-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold ml-1 inline-block";
@@ -727,6 +819,7 @@
             }
         }
 
+        // 🗺️ 지도 구현 로직 (스마트가이드북 지도 5원칙 적용)
         let mapInited = false;
         let dayLayers = {};
         let currentMap = null;
@@ -756,47 +849,62 @@
             currentMap = L.map('map', { scrollWheelZoom:false });
             L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(currentMap);
 
-            const createIcon = (color, emoji) => L.divIcon({
+            // 원칙1: JS 임의축약 절대금지. L.divIcon html 내부 div에 CSS animation 삽입
+            const createIcon = (color, emoji, idx) => L.divIcon({
                 className: 'custom-icon',
-                html: `<div style="background-color:${color}; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px;">${emoji}</div>`,
-                iconSize: [36, 36], iconAnchor: [18, 18], popupAnchor: [0, -18]
+                html: `<div style="background-color:${color}; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; opacity:0; animation:popIn 0.5s forwards; animation-delay:${idx*0.2}s;">${emoji}</div>`,
+                iconSize: [36, 36], iconAnchor: [18, 18], tooltipAnchor: [0, -18]
             });
 
+            // 원칙5: 핀셋엔 이모지만, 이름은 tooltip으로 처리
             const markers = {
-                apt: L.marker(spots.airport, {icon: createIcon('#f97316', '✈️')}).bindPopup('제주공항'),
-                iho: L.marker(spots.ihotewoo, {icon: createIcon('#f97316', '🐴')}).bindPopup('이호테우 등대'),
-                dc: L.marker(spots.daycare, {icon: createIcon('#f97316', '🏫')}).bindPopup('어린이집'),
-                sm: L.marker(spots.sumokwon, {icon: createIcon('#f97316', '🌃')}).bindPopup('수목원야시장'),
-                hotel: L.marker(spots.asiaHotel, {icon: createIcon('#8b5cf6', '🏨')}).bindPopup('아시아호텔'),
-                nh: L.marker(spots.nohyeong, {icon: createIcon('#3b82f6', '📷')}).bindPopup('노형수퍼마켓'),
-                sc: L.marker(spots.sinchang, {icon: createIcon('#3b82f6', '🌊')}).bindPopup('신창풍차해안도로'),
-                sg: L.marker(spots.sagye, {icon: createIcon('#3b82f6', '🏖️')}).bindPopup('사계해안'),
-                ad: L.marker(spots.andeok, {icon: createIcon('#3b82f6', '🏞️')}).bindPopup('안덕계곡'),
-                gs: L.marker(spots.gunsan, {icon: createIcon('#3b82f6', '⛰️')}).bindPopup('군산오름'),
-                cm: L.marker(spots.camellia, {icon: createIcon('#e11d48', '🌺')}).bindPopup('카멜리아힐'),
-                sr: L.marker(spots.saryeoni, {icon: createIcon('#22c55e', '🌲')}).bindPopup('사려니숲길'),
-                gt: L.marker(spots.greentea, {icon: createIcon('#22c55e', '🍵')}).bindPopup('녹차동굴')
+                apt: L.marker(spots.airport, {icon: createIcon('#f97316', '✈️', 1)}).bindTooltip('제주공항', {direction:'top'}),
+                iho: L.marker(spots.ihotewoo, {icon: createIcon('#f97316', '🐴', 2)}).bindTooltip('이호테우 등대', {direction:'top'}),
+                dc: L.marker(spots.daycare, {icon: createIcon('#f97316', '🏫', 3)}).bindTooltip('어린이집 벤치마킹', {direction:'top'}),
+                sm: L.marker(spots.sumokwon, {icon: createIcon('#f97316', '🌃', 4)}).bindTooltip('수목원야시장', {direction:'top'}),
+                hotel: L.marker(spots.asiaHotel, {icon: createIcon('#8b5cf6', '🏨', 5)}).bindTooltip('아시아호텔', {direction:'top'}),
+                nh: L.marker(spots.nohyeong, {icon: createIcon('#3b82f6', '📷', 1)}).bindTooltip('노형수퍼마켓', {direction:'top'}),
+                sc: L.marker(spots.sinchang, {icon: createIcon('#3b82f6', '🌊', 2)}).bindTooltip('신창풍차해안도로', {direction:'top'}),
+                sg: L.marker(spots.sagye, {icon: createIcon('#3b82f6', '🏖️', 3)}).bindTooltip('사계해안', {direction:'top'}),
+                ad: L.marker(spots.andeok, {icon: createIcon('#3b82f6', '🏞️', 4)}).bindTooltip('안덕계곡', {direction:'top'}),
+                gs: L.marker(spots.gunsan, {icon: createIcon('#3b82f6', '⛰️', 5)}).bindTooltip('군산오름', {direction:'top'}),
+                cm: L.marker(spots.camellia, {icon: createIcon('#e11d48', '🌺', 6)}).bindTooltip('카멜리아힐', {direction:'top'}),
+                sr: L.marker(spots.saryeoni, {icon: createIcon('#22c55e', '🌲', 1)}).bindTooltip('사려니숲길', {direction:'top'}),
+                gt: L.marker(spots.greentea, {icon: createIcon('#22c55e', '🍵', 2)}).bindTooltip('녹차동굴', {direction:'top'})
             };
 
             const paths = {
-                d1: L.polyline([spots.airport, spots.ihotewoo, spots.daycare, spots.sumokwon, spots.asiaHotel], {color:'#f97316', weight:5, opacity:0.8, className: 'animated-path'}),
-                d2: L.polyline([spots.asiaHotel, spots.nohyeong, spots.sinchang, spots.sagye, spots.andeok, spots.gunsan, spots.camellia, spots.asiaHotel], {color:'#3b82f6', weight:5, opacity:0.8, className: 'animated-path'}),
-                d3: L.polyline([spots.asiaHotel, spots.saryeoni, spots.greentea, spots.airport], {color:'#22c55e', weight:5, opacity:0.8, dashArray:'10,10', className: 'animated-path'})
+                d1: L.polyline([spots.airport, spots.ihotewoo, spots.daycare, spots.sumokwon, spots.asiaHotel], {color:'#f97316', weight:5, opacity:0.8}),
+                d2: L.polyline([spots.asiaHotel, spots.nohyeong, spots.sinchang, spots.sagye, spots.andeok, spots.gunsan, spots.camellia, spots.asiaHotel], {color:'#3b82f6', weight:5, opacity:0.8}),
+                d3: L.polyline([spots.asiaHotel, spots.saryeoni, spots.greentea, spots.airport], {color:'#22c55e', weight:5, opacity:0.8, dashArray:'10,10'})
             };
 
             dayLayers = {
-                day1: L.layerGroup([markers.apt, markers.iho, markers.dc, markers.sm, markers.hotel, paths.d1]),
-                day2: L.layerGroup([markers.hotel, markers.nh, markers.sc, markers.sg, markers.ad, markers.gs, markers.cm, paths.d2]),
-                day3: L.layerGroup([markers.hotel, markers.sr, markers.gt, markers.apt, paths.d3])
+                day1: L.layerGroup([paths.d1, markers.apt, markers.iho, markers.dc, markers.sm, markers.hotel]),
+                day2: L.layerGroup([paths.d2, markers.hotel, markers.nh, markers.sc, markers.sg, markers.ad, markers.gs, markers.cm]),
+                day3: L.layerGroup([paths.d3, markers.hotel, markers.sr, markers.gt, markers.apt])
             };
 
             filterMap('all');
         }
 
+        // 원칙3: 선 애니메이션
+        function animatePath(layer) {
+            const path = layer._path;
+            if(!path) return;
+            const len = path.getTotalLength();
+            path.style.strokeDasharray = len;
+            path.style.strokeDashoffset = len;
+            path.getBoundingClientRect(); // 강제 리플로우
+            path.style.transition = 'stroke-dashoffset 2s ease-in-out';
+            path.style.strokeDashoffset = '0';
+            setTimeout(() => { path.style.transition = ''; }, 2000); // 초기화
+        }
+
         window.filterMap = function(day) {
             if(!currentMap) return;
             
-            // UI 버튼 디자인 변경
+            // 버튼 상태 UI
             document.querySelectorAll('.map-btn').forEach(btn => {
                 btn.classList.remove('bg-slate-800', 'text-white');
                 btn.classList.add('bg-white', 'text-slate-600');
@@ -804,32 +912,40 @@
             document.getElementById('btn-map-'+day).classList.replace('bg-white', 'bg-slate-800');
             document.getElementById('btn-map-'+day).classList.replace('text-slate-600', 'text-white');
 
-            // 기존 레이어 제거
+            // 원칙4: 탭전환 시 clearLayers 선행
             Object.values(dayLayers).forEach(l => currentMap.removeLayer(l));
             
-            // 🛫 출발지에서 클로즈업 상태로 시작 (마치 비행기 위에서 출발지를 내려다보는 느낌)
-            let startPoint = allSpots.airport;
-            if(day === 'day2' || day === 'day3') startPoint = allSpots.asiaHotel;
-            currentMap.setView(startPoint, 14, {animate: false});
-            
-            // 애니메이션 재시작을 위한 딜레이 후 FlyTo 카메라 워킹
-            setTimeout(() => {
-                let targetBounds;
-                if (day === 'all') {
-                    Object.values(dayLayers).forEach(l => l.addTo(currentMap));
-                    targetBounds = L.latLngBounds(Object.values(allSpots));
-                } else {
-                    dayLayers[day].addTo(currentMap);
-                    targetBounds = dayLayers[day].getBounds ? dayLayers[day].getBounds() : L.latLngBounds(Object.values(allSpots));
-                }
-
-                // 천천히 목표 지점으로 줌아웃 & 이동 (선이 그려지는 시간과 맞물려 시각적 효과 극대화)
-                currentMap.flyToBounds(targetBounds, {
-                    padding: [50, 50],
-                    duration: 3.5, // 3.5초 동안 부드럽게 비행하듯 이동
-                    easeLinearity: 0.1
+            let targetBounds;
+            if (day === 'all') {
+                Object.values(dayLayers).forEach(l => l.addTo(currentMap));
+                targetBounds = L.latLngBounds(Object.values(allSpots));
+            } else {
+                dayLayers[day].addTo(currentMap);
+                
+                // 원칙3 적용: 폴리라인 찾아서 애니메이션 실행
+                dayLayers[day].eachLayer(layer => {
+                    if(layer instanceof L.Polyline) {
+                        setTimeout(() => animatePath(layer), 100);
+                    }
                 });
-            }, 100);
+                
+                // 마커 리렌더링 효과를 위해 제거 후 다시 추가
+                dayLayers[day].eachLayer(layer => {
+                    if(layer instanceof L.Marker) {
+                        const originalIcon = layer.options.icon;
+                        layer.setIcon(L.divIcon({className: 'hidden'}));
+                        setTimeout(() => layer.setIcon(originalIcon), 50);
+                    }
+                });
+
+                targetBounds = dayLayers[day].getBounds ? dayLayers[day].getBounds() : L.latLngBounds(Object.values(allSpots));
+            }
+
+            // 원칙2: fitBounds 직후 안정화
+            currentMap.fitBounds(targetBounds, { padding: [50, 50], maxZoom: 13 });
+            setTimeout(() => {
+                // 필요 시 추가 로직 안정화 대기
+            }, 300);
         };
 
         const io = new IntersectionObserver((entries)=>{
