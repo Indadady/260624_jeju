@@ -17,7 +17,7 @@
     <!-- SEO & Open Graph -->
     <meta name="description" content="아이들의 내일을 밝히는 정선의 원동력! 보육교직원 힐링 워크숍 스마트 가이드북">
     <meta property="og:title" content="🌴 [정선군청] 2026 어린이집 보육교직원 워크숍">
-    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/e/ee/Seongsan_Ilchulbong_1.jpg">
+    <meta property="og:image" content="https://marvelsofnature.com/wp-content/uploads/2024/07/1-Jejus-Natural-Beauty-1400x800.webp">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -56,6 +56,15 @@
             border: 2.5px solid white;
         }
 
+        /* 호텔 갤러리 슬라이더 */
+        .hotel-slider { overflow: hidden; position: relative; border-radius: 1.5rem; }
+        .hotel-slides { display: flex; transition: transform 0.5s ease; }
+        .hotel-slide { min-width: 100%; }
+        .hotel-slide img { width: 100%; height: 320px; object-fit: cover; }
+        .slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+        .slider-dot { width: 8px; height: 8px; border-radius: 50%; background: #cbd5e1; cursor: pointer; transition: all 0.3s; }
+        .slider-dot.active { background: #0ea5e9; width: 24px; border-radius: 4px; }
+
         /* 🖨️ A4 용지 인쇄용 특수 CSS (투어메이커 표준 양식) */
         @media print {
             @page { size: A4 portrait; margin: 10mm; }
@@ -87,11 +96,19 @@
             position: absolute; top: 50%; right: -12px; transform: translateY(-50%);
             width: 24px; height: 24px; background-color: #f0f9ff; border-radius: 50%; border-left: 1px solid #e2e8f0;
         }
+
+        /* 호텔 평점 별 */
+        .star-filled { color: #f59e0b; }
+        .star-empty { color: #e2e8f0; }
+
+        /* 호텔 카드 info 아이콘 행 */
+        .hotel-info-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+        .hotel-info-row:last-child { border-bottom: none; }
+        .hotel-info-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
     </style>
 </head>
 <body class="antialiased pb-20 md:pb-0">
 
-    <!-- 화면 표출 메인 래퍼 -->
     <div class="print:hidden">
 
     <!-- Header (Sticky Navigation) -->
@@ -111,6 +128,7 @@
                     <a href="#highlights" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-orange-600 hover:bg-slate-50 rounded-lg transition-colors">포인트</a>
                     <a href="#about-jeju" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-orange-600 hover:bg-slate-50 rounded-lg transition-colors">제주소개</a>
                     <a href="#flight-info" class="px-3 py-2 text-sm font-bold text-sky-600 hover:text-sky-800 hover:bg-sky-50 rounded-lg transition-colors"><i class="fa-solid fa-plane-departure mr-1 text-sky-400"></i>항공정보</a>
+                    <a href="#hotel-info" class="px-3 py-2 text-sm font-bold text-violet-600 hover:text-violet-800 hover:bg-violet-50 rounded-lg transition-colors"><i class="fa-solid fa-hotel mr-1 text-violet-400"></i>숙소정보</a>
                     <a href="#map-section" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-orange-600 hover:bg-slate-50 rounded-lg transition-colors">여행동선</a>
                     <a href="#schedule" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-orange-600 hover:bg-slate-50 rounded-lg transition-colors">세부일정</a>
                     <a href="#video" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-orange-600 hover:bg-slate-50 rounded-lg transition-colors">영상자료</a>
@@ -163,14 +181,12 @@
                     <p class="text-slate-600 text-sm leading-relaxed mb-4">제주 우수 어린이집 방문을 통해 선진 보육 환경을 시찰하고 업무 노하우와 인사이트를 공유합니다.</p>
                     <span class="inline-block bg-teal-600 text-white text-xs px-3 py-1 rounded-full font-bold">인사이트 충전</span>
                 </div>
-
                 <div class="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
                     <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 text-4xl">🌺</div>
                     <h3 class="text-2xl font-bold text-slate-800 mb-3 font-title">다채로운 힐링 테마</h3>
                     <p class="text-slate-600 text-sm leading-relaxed mb-4">안덕계곡의 비경, 동백 숲 카멜리아힐, 신비로운 미디어아트까지 동선을 최적화한 알찬 힐링을 선사합니다.</p>
                     <span class="inline-block bg-blue-500 text-white text-xs px-3 py-1 rounded-full font-bold">재충전의 시간</span>
                 </div>
-
                 <div class="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
                     <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6 text-4xl">🍗</div>
                     <h3 class="text-2xl font-bold text-slate-800 mb-3 font-title">제주의 맛, 미식 투어</h3>
@@ -181,13 +197,18 @@
         </div>
     </section>
 
-    <!-- 3. 환영문구 (제주 소개) -->
+    <!-- 3. 환영문구 (제주 소개) - 사진 교체 -->
     <section id="about-jeju" class="py-16 bg-slate-50 border-t border-slate-100">
         <div class="container mx-auto px-4">
             <div class="flex flex-col lg:flex-row items-center gap-12 max-w-6xl mx-auto">
                 <div class="lg:w-1/2 relative">
                     <div class="absolute -inset-4 bg-orange-100 rounded-[2.5rem] transform -rotate-3 z-0"></div>
-                    <img src="https://ndev-api.visitjeju.net/ptLettnfiledetail/real_path/202511/25/d67211d1-579a-4d6d-a671-c6a307eed8f6.webp" alt="Jeju Nature" class="relative z-10 rounded-[2rem] shadow-xl w-full object-cover h-[400px]">
+                    <!-- ✅ 사진 교체 완료 -->
+                    <img 
+                        src="https://marvelsofnature.com/wp-content/uploads/2024/07/1-Jejus-Natural-Beauty-1400x800.webp" 
+                        alt="제주의 자연" 
+                        class="relative z-10 rounded-[2rem] shadow-xl w-full object-cover h-[400px]"
+                    >
                     <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-2xl shadow-lg z-20 font-bold text-teal-600 flex items-center gap-2">
                         <i class="fa-solid fa-leaf text-2xl"></i> 유네스코 세계자연유산
                     </div>
@@ -209,7 +230,7 @@
         </div>
     </section>
 
-    <!-- 3.5 항공편 예매 정보 (신규) -->
+    <!-- 3.5 항공편 예매 정보 -->
     <section id="flight-info" class="py-16 bg-sky-50 border-t border-sky-100">
         <div class="container mx-auto px-4 max-w-4xl">
             <div class="text-center mb-10">
@@ -218,17 +239,12 @@
                 <p class="text-slate-500 text-sm mt-2">안전하고 편안한 이동을 위해 사전 발권이 완료되었습니다.</p>
             </div>
 
-            <!-- Ticket Card UI -->
             <div class="bg-white rounded-[2rem] shadow-xl border border-slate-100 overflow-hidden relative">
-                <!-- 상단 브랜드 라인 (진에어 컬러 모티브) -->
                 <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-lime-400 to-emerald-500"></div>
-                
-                <!-- 티켓 펀치 홀 효과 -->
                 <div class="ticket-punch-left hidden sm:block"></div>
                 <div class="ticket-punch-right hidden sm:block"></div>
 
                 <div class="p-8 md:p-10">
-                    <!-- 헤더 영역 -->
                     <div class="flex flex-col md:flex-row items-center justify-between border-b border-dashed border-slate-300 pb-6 mb-8 gap-4">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-lime-100 text-lime-600 rounded-full flex items-center justify-center text-2xl shadow-sm border border-lime-200">
@@ -245,7 +261,6 @@
                         </div>
                     </div>
 
-                    <!-- 출국 항공편 (원주->제주) -->
                     <div class="flex flex-col md:flex-row items-center justify-between bg-slate-50 rounded-2xl p-6 mb-5 border border-slate-100 hover:shadow-md transition-shadow relative overflow-hidden group">
                         <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-sky-400 group-hover:bg-orange-400 transition-colors"></div>
                         <div class="w-full md:w-1/4 text-center md:text-left mb-4 md:mb-0 pl-2">
@@ -253,7 +268,6 @@
                             <span class="text-lg font-bold text-sky-600">6. 22 (월)</span>
                             <span class="text-sm font-bold text-slate-500 block">LJ471편</span>
                         </div>
-                        
                         <div class="flex items-center justify-center w-full md:w-2/3 gap-4 md:gap-8">
                             <div class="text-right flex-1">
                                 <h4 class="text-3xl font-black text-slate-800 tracking-tighter">11:15</h4>
@@ -270,7 +284,6 @@
                         </div>
                     </div>
 
-                    <!-- 귀국 항공편 (제주->원주) -->
                     <div class="flex flex-col md:flex-row items-center justify-between bg-slate-50 rounded-2xl p-6 mb-2 border border-slate-100 hover:shadow-md transition-shadow relative overflow-hidden group">
                         <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-orange-400 group-hover:bg-sky-400 transition-colors"></div>
                         <div class="w-full md:w-1/4 text-center md:text-left mb-4 md:mb-0 pl-2">
@@ -278,7 +291,6 @@
                             <span class="text-lg font-bold text-orange-500">6. 24 (수)</span>
                             <span class="text-sm font-bold text-slate-500 block">LJ474편</span>
                         </div>
-                        
                         <div class="flex items-center justify-center w-full md:w-2/3 gap-4 md:gap-8">
                             <div class="text-right flex-1">
                                 <h4 class="text-3xl font-black text-slate-800 tracking-tighter">15:20</h4>
@@ -295,7 +307,6 @@
                         </div>
                     </div>
 
-                    <!-- 주의사항 알림 -->
                     <div class="mt-8 bg-red-50 p-5 rounded-2xl border border-red-100 flex items-start gap-4">
                         <div class="bg-white rounded-full p-2 shadow-sm shrink-0">
                             <i class="fa-solid fa-id-card text-red-500 text-xl"></i>
@@ -310,7 +321,145 @@
         </div>
     </section>
 
-    <!-- 4. Map Section (최적화 5원칙 반영) -->
+    <!-- ✅ 신규: 숙소 정보 섹션 (아시아호텔 제주) -->
+    <section id="hotel-info" class="py-16 bg-violet-50 border-t border-violet-100">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="text-center mb-10">
+                <span class="text-violet-500 font-black tracking-widest text-xs uppercase">Accommodation</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mt-2 font-title">숙소 안내</h2>
+                <p class="text-slate-500 text-sm mt-2">편안한 휴식을 위한 최적의 공간을 준비했습니다.</p>
+            </div>
+
+            <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden">
+                <!-- 상단 브랜드 라인 -->
+                <div class="h-2 bg-gradient-to-r from-violet-400 via-purple-500 to-indigo-500"></div>
+
+                <div class="p-8 md:p-10">
+                    <div class="flex flex-col lg:flex-row gap-10">
+
+                        <!-- 왼쪽: 이미지 슬라이더 -->
+                        <div class="lg:w-1/2">
+                            <div class="hotel-slider shadow-lg">
+                                <div class="hotel-slides" id="hotelSlides">
+                                    <div class="hotel-slide">
+                                        <img src="https://lh3.googleusercontent.com/places/ANXAkqFkJqI7LxaiEWVfSkEzM511LWH6EOIEQZxCCww1I4tB30dSdLdSQ8PzWwi-PlXgGHmdTFvPa3JmtnvvLywh-yaZIdYozbLBGg8=s4800-w800-h600" alt="아시아호텔 제주 전경" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=500&fit=crop'">
+                                    </div>
+                                    <div class="hotel-slide">
+                                        <img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP2EojS3-J1lcq2n8A1BVQC6fyteax2C1LvTNv8wGYMhtn5RDxN3U29_n9Ve5-gIPP9VH-utLZbZKSfMtM4QTps0eSqdlBgvx_sa_TfUDsKICfczwcBvCaU4fxi0Ybtcz0HpzcvVUdCx68uEg=s4800-w800-h600" alt="아시아호텔 제주 객실" onerror="this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&h=500&fit=crop'">
+                                    </div>
+                                    <div class="hotel-slide">
+                                        <img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNm7AjS7r_QErqOcMf2X4apfnno1uisGPVqoKeyaaYIy3S9qn0m0WdDkUfEn1xd3O4xBcwUyIhfePCTh_GA76GKsbqDwtFFXPCwbr95RhF7-UdUPl-YPdWxpH9QA2DlN5BaFYPOH_x5udCF=s4800-w800-h600" alt="아시아호텔 제주 내부" onerror="this.src='https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&h=500&fit=crop'">
+                                    </div>
+                                    <div class="hotel-slide">
+                                        <img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOgwULerZj4kOBjlDpg4RR4P1d1OCH7LekwWM_dOvi6dwKJHZsW0_5nlEdlvlaXDPOSGjtaBn-4XDEysARhmQMthKolS0w-s2UuWr14aYWae_PFtmCgKqG6Kilf1_8Nez11XDtPZ7yXrkCVpw=s4800-w800-h600" alt="아시아호텔 제주 부대시설" onerror="this.src='https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=500&fit=crop'">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 슬라이더 컨트롤 -->
+                            <div class="flex items-center justify-between mt-4 px-2">
+                                <button onclick="prevSlide()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-violet-100 hover:text-violet-600 transition flex items-center justify-center text-slate-500">
+                                    <i class="fa-solid fa-chevron-left text-sm"></i>
+                                </button>
+                                <div class="slider-dots" id="sliderDots">
+                                    <div class="slider-dot active" onclick="goToSlide(0)"></div>
+                                    <div class="slider-dot" onclick="goToSlide(1)"></div>
+                                    <div class="slider-dot" onclick="goToSlide(2)"></div>
+                                    <div class="slider-dot" onclick="goToSlide(3)"></div>
+                                </div>
+                                <button onclick="nextSlide()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-violet-100 hover:text-violet-600 transition flex items-center justify-center text-slate-500">
+                                    <i class="fa-solid fa-chevron-right text-sm"></i>
+                                </button>
+                            </div>
+                            <p class="text-center text-xs text-slate-400 mt-2 font-medium">* 실제 객실 배정은 현지 상황에 따라 다를 수 있습니다.</p>
+                        </div>
+
+                        <!-- 오른쪽: 호텔 정보 -->
+                        <div class="lg:w-1/2 flex flex-col justify-between">
+                            <!-- 호텔명 및 평점 -->
+                            <div class="mb-6">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="bg-violet-100 text-violet-700 text-xs font-black px-3 py-1 rounded-full">공식 지정 숙소</span>
+                                    <span class="bg-slate-100 text-slate-500 text-xs font-bold px-3 py-1 rounded-full">2인 1실 기준</span>
+                                </div>
+                                <h3 class="text-2xl font-black text-slate-800 font-title mt-2">아시아호텔 제주</h3>
+                                <p class="text-sm text-slate-500 font-medium mt-1">Asia Hotel Jeju</p>
+                                <!-- 평점 -->
+                                <div class="flex items-center gap-2 mt-3">
+                                    <div class="flex gap-0.5">
+                                        <i class="fa-solid fa-star star-filled text-sm"></i>
+                                        <i class="fa-solid fa-star star-filled text-sm"></i>
+                                        <i class="fa-solid fa-star star-filled text-sm"></i>
+                                        <i class="fa-solid fa-star star-filled text-sm"></i>
+                                        <i class="fa-regular fa-star star-empty text-sm"></i>
+                                    </div>
+                                    <span class="font-black text-slate-700 text-sm">4.0</span>
+                                    <span class="text-slate-400 text-xs">(Google 리뷰 524건)</span>
+                                </div>
+                            </div>
+
+                            <!-- 호텔 상세 정보 -->
+                            <div class="bg-slate-50 rounded-2xl p-5 space-y-1 mb-6">
+                                <div class="hotel-info-row">
+                                    <div class="hotel-info-icon bg-violet-100"><i class="fa-solid fa-location-dot text-violet-600"></i></div>
+                                    <div>
+                                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-0.5">주소</p>
+                                        <p class="text-sm font-medium text-slate-700">제주특별자치도 제주시 노연로 53</p>
+                                    </div>
+                                </div>
+                                <div class="hotel-info-row">
+                                    <div class="hotel-info-icon bg-green-100"><i class="fa-solid fa-phone text-green-600"></i></div>
+                                    <div>
+                                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-0.5">대표 전화</p>
+                                        <a href="tel:064-798-0888" class="text-sm font-bold text-green-600 hover:text-green-700">064-798-0888</a>
+                                    </div>
+                                </div>
+                                <div class="hotel-info-row">
+                                    <div class="hotel-info-icon bg-blue-100"><i class="fa-solid fa-globe text-blue-600"></i></div>
+                                    <div>
+                                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-0.5">공식 웹사이트</p>
+                                        <a href="https://www.asiajeju.com/" target="_blank" class="text-sm font-bold text-blue-600 hover:text-blue-700">asiajeju.com <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                                    </div>
+                                </div>
+                                <div class="hotel-info-row">
+                                    <div class="hotel-info-icon bg-orange-100"><i class="fa-solid fa-clock text-orange-600"></i></div>
+                                    <div>
+                                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-0.5">운영</p>
+                                        <p class="text-sm font-medium text-slate-700">연중무휴 24시간 운영</p>
+                                    </div>
+                                </div>
+                                <div class="hotel-info-row">
+                                    <div class="hotel-info-icon bg-sky-100"><i class="fa-solid fa-car text-sky-600"></i></div>
+                                    <div>
+                                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-0.5">위치 특성</p>
+                                        <p class="text-sm font-medium text-slate-700">제주 시내 중심부 · 공항 차량 약 10분 · 쇼핑가 도보권</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 편의시설 태그 -->
+                            <div>
+                                <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">주요 편의시설</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-white border border-slate-200 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-xl shadow-sm"><i class="fa-solid fa-utensils text-orange-400 mr-1"></i>조식 뷔페 제공</span>
+                                    <span class="bg-white border border-slate-200 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-xl shadow-sm"><i class="fa-solid fa-wifi text-blue-400 mr-1"></i>무료 Wi-Fi</span>
+                                    <span class="bg-white border border-slate-200 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-xl shadow-sm"><i class="fa-solid fa-square-parking text-teal-400 mr-1"></i>주차 지원</span>
+                                    <span class="bg-white border border-slate-200 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-xl shadow-sm"><i class="fa-solid fa-plug text-purple-400 mr-1"></i>국제형 콘센트</span>
+                                    <span class="bg-white border border-slate-200 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-xl shadow-sm"><i class="fa-solid fa-bottle-water text-cyan-400 mr-1"></i>생수 무료 제공</span>
+                                </div>
+                                <!-- 인솔자 주의사항 -->
+                                <div class="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
+                                    <p class="text-xs font-black text-amber-700 mb-1.5"><i class="fa-solid fa-triangle-exclamation mr-1"></i> 인솔자 사전 요청 권고 사항</p>
+                                    <p class="text-xs text-amber-700 leading-relaxed">다리미·욕실 슬리퍼 비치가 불안정할 수 있으므로 체크인 전 사전 요청을 권장합니다. 짐 보관 공간이 없어 체크아웃 후 일정이 있을 경우 대안 필요.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Map Section -->
     <section id="map-section" class="py-16 bg-white border-t border-slate-100">
         <div class="container mx-auto px-4">
             <div class="text-center mb-10">
@@ -327,7 +476,6 @@
 
             <div class="max-w-5xl mx-auto border-8 border-slate-100 rounded-[2.5rem] shadow-xl overflow-hidden bg-white relative z-10">
                 <div id="map"></div>
-                <!-- 오버레이 안내 뱃지 -->
                 <div class="absolute top-4 left-4 z-[400] bg-white/90 backdrop-blur px-3 py-1.5 rounded-xl shadow font-bold text-xs text-slate-700 pointer-events-none">
                     <i class="fa-solid fa-map-location-dot text-orange-500 mr-1"></i> 동선 렌더링 중...
                 </div>
@@ -507,21 +655,17 @@
             </div>
             
             <div class="max-w-4xl mx-auto bg-white rounded-[2.5rem] shadow-lg border border-slate-100 overflow-hidden">
-                <!-- 🌦️ 실시간 날씨 위젯 영역 -->
                 <div class="bg-slate-800 p-6 text-white relative">
                     <div class="flex items-center justify-between mb-4 px-2">
                         <div class="font-bold text-sm"><i class="fa-solid fa-location-dot text-blue-400 mr-2"></i>제주특별자치도 현재 예보</div>
                         <div class="text-xs text-slate-400">Open-Meteo API</div>
                     </div>
-                    
                     <div class="weather-scroll-fade">
                         <div id="weather-widget" class="flex overflow-x-auto gap-4 pb-2 pt-1 px-4 no-scrollbar">
                             <div class="min-w-[100px] flex justify-center py-4 w-full"><i class="fa-solid fa-spinner fa-spin text-2xl text-slate-500"></i></div>
                         </div>
                     </div>
                 </div>
-
-                <!-- 👕 옷차림 가이드 영역 -->
                 <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6 bg-white">
                     <div class="flex items-start gap-4">
                         <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center shrink-0 text-xl"><i class="fa-solid fa-shirt"></i></div>
@@ -556,7 +700,7 @@
         </div>
     </section>
 
-    <!-- 8. Smart Toolkit (Checklist & Memo) -->
+    <!-- 8. Smart Toolkit -->
     <section id="toolkit" class="py-16 bg-white border-t border-slate-100">
         <div class="container mx-auto px-4 max-w-5xl">
             <div class="text-center mb-10">
@@ -564,14 +708,10 @@
                 <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mt-2 font-title">스마트 체크리스트 & 벤치마킹 메모장</h2>
                 <p class="text-slate-500 text-sm mt-2">완벽한 출발 준비와 현장 기록을 위한 도구입니다.</p>
             </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Checklist -->
                 <div class="bg-slate-50 rounded-3xl p-6 lg:p-8 shadow-sm border border-slate-200">
                     <h3 class="font-bold text-lg text-slate-800 mb-5 flex items-center gap-2"><i class="fa-solid fa-clipboard-check text-purple-500"></i> 제주 여행 필수 준비물</h3>
-                    
                     <div class="space-y-5">
-                        <!-- Category 1 -->
                         <div>
                             <h4 class="text-sm font-black text-slate-800 mb-3 border-b-2 border-slate-200 pb-2">필수 지참 항목</h4>
                             <label class="flex items-start gap-3 p-2 hover:bg-white rounded-lg cursor-pointer transition">
@@ -583,8 +723,6 @@
                                 <span class="text-sm text-slate-700 font-medium">개인 신용/체크카드 (모바일 페이 포함)</span>
                             </label>
                         </div>
-                        
-                        <!-- Category 2 -->
                         <div>
                             <h4 class="text-sm font-black text-slate-800 mb-3 border-b-2 border-slate-200 pb-2">개인 용품 및 상비약</h4>
                             <label class="flex items-start gap-3 p-2 hover:bg-white rounded-lg cursor-pointer transition">
@@ -600,8 +738,6 @@
                                 <span class="text-sm text-slate-700 font-medium">보조 배터리 및 스마트폰 충전기</span>
                             </label>
                         </div>
-
-                        <!-- Category 3 -->
                         <div>
                             <h4 class="text-sm font-black text-slate-800 mb-3 border-b-2 border-slate-200 pb-2">의류 및 잡화</h4>
                             <label class="flex items-start gap-3 p-2 hover:bg-white rounded-lg cursor-pointer transition">
@@ -615,12 +751,9 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Memo -->
                 <div class="bg-yellow-50 rounded-3xl p-6 lg:p-8 shadow-sm border border-yellow-200 flex flex-col">
                     <h3 class="font-bold text-lg text-slate-800 mb-2 flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-yellow-600"></i> 현장 메모장</h3>
                     <p class="text-xs text-yellow-700 mb-4">* 작성하신 내용은 앱 종료 시 초기화되니 중요한 내용은 화면을 캡처해 주세요.</p>
-                    
                     <textarea class="w-full flex-1 min-h-[280px] p-5 rounded-2xl border border-yellow-300 bg-white/70 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white resize-none text-slate-700 placeholder-slate-400 text-sm leading-relaxed" placeholder="✔ 어린이집 벤치마킹 중 메모할 사항&#10;✔ 여행 중 떠오른 보육 아이디어&#10;✔ 함께 나눌 이야기 등 자유롭게 기록해 보세요."></textarea>
                 </div>
             </div>
@@ -634,7 +767,6 @@
                 <h2 class="text-3xl font-bold text-slate-800 font-title">🚨 비상 연락망</h2>
                 <p class="text-sm text-slate-500 mt-2">안전하고 편안한 벤치마킹 워크숍을 위해 투어메이커가 함께합니다.</p>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 flex flex-col items-center text-center group hover:bg-orange-50 transition-all duration-300">
                     <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-5 shadow-sm group-hover:scale-110 transition-transform">
@@ -656,7 +788,7 @@
         </div>
     </section>
 
-    <!-- 10. 🌳 ESG 실천 대시보드 -->
+    <!-- 10. ESG 실천 대시보드 -->
     <section id="esg-dashboard" class="py-16 bg-emerald-50 border-t border-emerald-100">
         <div class="container mx-auto px-4">
             <div class="text-center mb-10">
@@ -664,15 +796,14 @@
                 <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mt-2 font-title">디지털 전환(DX) 성과 대시보드</h2>
                 <p class="text-slate-500 text-sm mt-2">정선군청 스마트 가이드북 도입 기대효과 <strong class="text-emerald-600">(1인당 기준)</strong></p>
             </div>
-            
             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-emerald-100 text-center transform hover:-translate-y-1 transition duration-300">
-                    <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-4"><i class="fa-solid fa-file-leaf"></i></div>
+                    <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-4"><i class="fa-solid fa-file-lines"></i></div>
                     <div class="text-3xl font-black text-slate-800">8<span class="text-lg font-medium text-slate-500 ml-1">장</span></div>
                     <div class="text-sm font-bold text-slate-500 mt-1">종이 절감</div>
                 </div>
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-emerald-100 text-center transform hover:-translate-y-1 transition duration-300">
-                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-4"><i class="fa-solid fa-cloud-meatball"></i></div>
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-4"><i class="fa-solid fa-cloud"></i></div>
                     <div class="text-3xl font-black text-slate-800">38<span class="text-lg font-medium text-slate-500 ml-1">g</span></div>
                     <div class="text-sm font-bold text-slate-500 mt-1">탄소 배출 감소</div>
                 </div>
@@ -682,7 +813,6 @@
                     <div class="text-sm font-bold text-slate-500 mt-1">물 절약</div>
                 </div>
             </div>
-
             <div class="max-w-4xl mx-auto bg-emerald-600 text-white rounded-2xl p-6 text-center shadow-lg border border-emerald-700">
                 <p class="text-sm md:text-base font-medium leading-relaxed">
                     본 행사는 종이 인쇄물을 대체하는 스마트 가이드북 도입을 통해 자원 낭비를 막고 탄소 배출을 줄이는 효과를 거두었으며, 디지털 전환(DX)을 통한 공공부문 에너지 절약 실천의 모범 사례입니다.
@@ -703,26 +833,23 @@
                 </a>
             </div>
             <p style="font-size: 12px; color: #6c757d; font-weight: normal; margin: 0 auto; line-height: 1.6; max-width: 600px;">
-                [System Powered by TOURMAKER] 본 스마트 가이드북은 **정선군청 가족행복과**의 기획과 <a href="http://tourmaker.kr" target="_blank" style="font-weight: bold; color: #6c757d; text-decoration: underline; text-underline-offset: 2px;">투어메이커</a>의 트래블 테크 기술 제휴로 제작되었습니다.
+                [System Powered by TOURMAKER] 본 스마트 가이드북은 <strong>정선군청 가족행복과</strong>의 기획과 <a href="http://tourmaker.kr" target="_blank" style="font-weight: bold; color: #6c757d; text-decoration: underline; text-underline-offset: 2px;">투어메이커</a>의 트래블 테크 기술 제휴로 제작되었습니다.
             </p>
         </div>
     </footer>
 
-    </div>
+    </div><!-- end print:hidden -->
 
-    <!-- 🖨️ 인쇄용 A4 레이아웃 (투어메이커 표준 결재 서류용 양식) -->
+    <!-- 🖨️ 인쇄용 A4 레이아웃 -->
     <div id="print-layout" class="hidden print:flex flex-col h-[260mm] w-full bg-white text-black mx-auto box-border">
-        <!-- Header -->
         <div class="border-b-4 border-black pb-3 mb-3 text-center shrink-0">
             <h1 class="text-3xl font-black text-center mb-2">[정선군청] 2026 보육교직원 워크숍 일정표</h1>
             <p class="text-sm text-gray-600 font-bold tracking-widest uppercase italic">2026. 06. 22 - 06. 24 | Jeju Healing Workshop</p>
         </div>
         <div class="mb-3 flex justify-between text-sm font-bold shrink-0 px-1">
             <span>■ 대상: 정선군청 가족행복과 보육교직원</span>
-            <span>■ 숙소: 아시아호텔 (2인 1실)</span>
+            <span>■ 숙소: 아시아호텔 제주 (2인 1실)</span>
         </div>
-        
-        <!-- Table (비율: 11% / 75% / 14%) -->
         <div class="flex-grow flex flex-col">
             <table class="w-full h-full border-collapse border-2 border-black text-[13px]" style="table-layout: fixed;">
                 <thead>
@@ -745,7 +872,7 @@
                                 <li>■ 이호테우말등대 & 도두봉 산책</li>
                                 <li><span class="font-black" style="color:#004098;">■ 17:00 제주보듬이나눔이어린이집 방문 벤치마킹 (약 1시간)</span></li>
                                 <li>■ 수목원야시장 구경 및 석식(회정식, 19:30)</li>
-                                <li>■ 숙소 도착 및 체크인</li>
+                                <li>■ 숙소(아시아호텔 제주) 도착 및 체크인</li>
                             </ul>
                         </td>
                         <td class="border-2 border-black text-center font-bold">
@@ -803,8 +930,6 @@
                 </tbody>
             </table>
         </div>
-        
-        <!-- Footer -->
         <div class="mt-4 pt-2 flex justify-between items-center shrink-0">
             <div class="flex items-center gap-2">
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHfgIX70O5k6Anuo0UgALIdaG9jSga9auHu3uyz0uEirylGPAJnjN_qQbvEGMUvPqUQf_g9FMNUHRxlDcUBf4vZ3Mpy4TnA9WxbmzWYK11gt2zuy_Irl4wctNFjcjLyPo0GPXV792o_J7L9guRMuDfeC1gy7USwywjYbECZgzcsHybuGRRAXAnO1eNmP8/s320/logo.png" style="height: 20px;">
@@ -816,12 +941,28 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // ☀️ 날씨 API 연동 (Open-Meteo)
+        // ===== 호텔 이미지 슬라이더 =====
+        let currentSlide = 0;
+        const totalSlides = 4;
+
+        function goToSlide(index) {
+            currentSlide = index;
+            document.getElementById('hotelSlides').style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.querySelectorAll('.slider-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+        function nextSlide() { goToSlide((currentSlide + 1) % totalSlides); }
+        function prevSlide() { goToSlide((currentSlide - 1 + totalSlides) % totalSlides); }
+
+        // 자동 슬라이드 (4초)
+        setInterval(nextSlide, 4000);
+
+        // ===== 날씨 API (Open-Meteo) =====
         async function fetchWeather() {
             const lat = 33.4996; const lon = 126.5312;
             const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FSeoul`;
             const widget = document.getElementById('weather-widget');
-            
             try {
                 const res = await fetch(url);
                 const data = await res.json();
@@ -834,7 +975,6 @@
         function renderWeather(daily, container) {
             let html = '';
             const days = ['일', '월', '화', '수', '목', '금', '토'];
-
             const wmoCodeToIcon = (code) => {
                 if (code === 0) return { icon: 'fa-sun text-yellow-400', text: '맑음' };
                 if (code === 1 || code === 2) return { icon: 'fa-cloud-sun text-slate-300', text: '구름조금' };
@@ -845,7 +985,6 @@
                 if ([95, 96, 99].includes(code)) return { icon: 'fa-cloud-bolt text-purple-400', text: '뇌우' };
                 return { icon: 'fa-cloud text-slate-400', text: '알수없음' };
             };
-
             for (let i = 0; i < 7; i++) {
                 const d = new Date(daily.time[i]);
                 const dayName = days[d.getDay()];
@@ -853,10 +992,8 @@
                 const max = Math.round(daily.temperature_2m_max[i]);
                 const min = Math.round(daily.temperature_2m_min[i]);
                 const wInfo = wmoCodeToIcon(daily.weathercode[i]);
-
                 const isToday = i === 0 ? 'bg-slate-700 border-slate-600 shadow-md ring-1 ring-blue-500' : 'bg-slate-800 border-slate-700 opacity-90';
                 const todayBadge = i === 0 ? `<div class="absolute -top-2 -right-2 bg-blue-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">오늘</div>` : '';
-
                 html += `
                     <div class="relative min-w-[85px] flex-shrink-0 flex flex-col items-center p-3 rounded-2xl border ${isToday} transition-transform hover:-translate-y-1">
                         ${todayBadge}
@@ -874,16 +1011,12 @@
             container.innerHTML = html;
         }
 
-        // 🗓️ 3단계 D-Day 분기 처리 로직
+        // ===== D-Day 3단계 분기 =====
         document.addEventListener('DOMContentLoaded', () => {
             fetchWeather();
-            
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            
+            const today = new Date(); today.setHours(0,0,0,0);
             const start = new Date('2026-06-22T00:00:00');
             const end = new Date('2026-06-24T23:59:59');
-            
             const badge = document.getElementById('d-day-badge');
             const heroMainTitle = document.getElementById('hero-main-title');
             const heroSubTitle = document.getElementById('hero-sub-title');
@@ -894,17 +1027,18 @@
                 const diff = Math.ceil((start - today) / (1000 * 60 * 60 * 24));
                 badge.textContent = `D-${diff}`;
                 badge.className = "bg-blue-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold animate-pulse ml-1 inline-block";
+                badge.classList.remove('hidden');
             } else if (today >= start && today <= end) {
                 const currentDay = Math.ceil((today - start) / (1000 * 60 * 60 * 24)) + 1;
                 badge.textContent = `📍 ${currentDay}일차 진행중`;
                 badge.className = "bg-orange-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold animate-pulse ml-1 inline-block";
-                
+                badge.classList.remove('hidden');
                 heroMainTitle.innerHTML = `현재 <span class="text-yellow-400">${orgName}</span>의<br><span class="text-white">${currentDay}일차 여정</span>이 활기차게 진행되고 있습니다.`;
                 heroSubTitle.textContent = "편안하고 알찬 벤치마킹을 투어메이커가 지원합니다.";
             } else {
                 badge.textContent = `🏁 여정 종료`;
                 badge.className = "bg-slate-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold ml-1 inline-block";
-                
+                badge.classList.remove('hidden');
                 heroMainTitle.innerHTML = "모든 여정이 종료되었습니다.";
                 heroSubTitle.textContent = "좋은 추억으로 오래 간직되길 바랍니다.";
                 if(heroDates) heroDates.classList.add('hidden');
@@ -931,7 +1065,7 @@
             }
         }
 
-        // 🗺️ 지도 구현 로직 (스마트가이드북 지도 5원칙 적용)
+        // ===== 지도 (5원칙 적용) =====
         let mapInited = false;
         let dayLayers = {};
         let currentMap = null;
@@ -940,7 +1074,6 @@
         function initMap(){
             if(mapInited || !window.L) return;
             mapInited = true;
-            
             const spots = {
                 airport: [33.5104, 126.4913],
                 ihotewoo: [33.4985, 126.4528],
@@ -957,107 +1090,90 @@
                 greentea: [33.4116, 126.7126]
             };
             allSpots = spots;
-
             currentMap = L.map('map', { scrollWheelZoom:false });
             L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(currentMap);
 
-            // 원칙1: JS 임의축약 절대금지. L.divIcon html 내부 div에 CSS animation 삽입
+            // 원칙1: CSS animation in html, no JS transform
             const createIcon = (color, emoji, idx) => L.divIcon({
                 className: 'custom-icon',
                 html: `<div style="background-color:${color}; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; opacity:0; animation:popIn 0.5s forwards; animation-delay:${idx*0.2}s;">${emoji}</div>`,
                 iconSize: [36, 36], iconAnchor: [18, 18], tooltipAnchor: [0, -18]
             });
 
-            // 원칙5: 핀셋엔 이모지만, 이름은 tooltip으로 처리
             const markers = {
-                apt: L.marker(spots.airport, {icon: createIcon('#f97316', '✈️', 1)}).bindTooltip('제주공항', {direction:'top'}),
-                iho: L.marker(spots.ihotewoo, {icon: createIcon('#f97316', '🐴', 2)}).bindTooltip('이호테우 등대', {direction:'top'}),
-                dc: L.marker(spots.daycare, {icon: createIcon('#f97316', '🏫', 3)}).bindTooltip('어린이집 벤치마킹', {direction:'top'}),
-                sm: L.marker(spots.sumokwon, {icon: createIcon('#f97316', '🌃', 4)}).bindTooltip('수목원야시장', {direction:'top'}),
-                hotel: L.marker(spots.asiaHotel, {icon: createIcon('#8b5cf6', '🏨', 5)}).bindTooltip('아시아호텔', {direction:'top'}),
-                nh: L.marker(spots.nohyeong, {icon: createIcon('#3b82f6', '📷', 1)}).bindTooltip('노형수퍼마켓', {direction:'top'}),
-                sc: L.marker(spots.sinchang, {icon: createIcon('#3b82f6', '🌊', 2)}).bindTooltip('신창풍차해안도로', {direction:'top'}),
-                sg: L.marker(spots.sagye, {icon: createIcon('#3b82f6', '🏖️', 3)}).bindTooltip('사계해안', {direction:'top'}),
-                ad: L.marker(spots.andeok, {icon: createIcon('#3b82f6', '🏞️', 4)}).bindTooltip('안덕계곡', {direction:'top'}),
-                gs: L.marker(spots.gunsan, {icon: createIcon('#3b82f6', '⛰️', 5)}).bindTooltip('군산오름', {direction:'top'}),
-                cm: L.marker(spots.camellia, {icon: createIcon('#e11d48', '🌺', 6)}).bindTooltip('카멜리아힐', {direction:'top'}),
-                sr: L.marker(spots.saryeoni, {icon: createIcon('#22c55e', '🌲', 1)}).bindTooltip('사려니숲길', {direction:'top'}),
-                gt: L.marker(spots.greentea, {icon: createIcon('#22c55e', '🍵', 2)}).bindTooltip('녹차동굴', {direction:'top'})
+                apt: L.marker(spots.airport, {icon: createIcon('#f97316','✈️',1)}).bindTooltip('제주공항',{direction:'top'}),
+                iho: L.marker(spots.ihotewoo, {icon: createIcon('#f97316','🐴',2)}).bindTooltip('이호테우 등대',{direction:'top'}),
+                dc: L.marker(spots.daycare, {icon: createIcon('#f97316','🏫',3)}).bindTooltip('어린이집 벤치마킹',{direction:'top'}),
+                sm: L.marker(spots.sumokwon, {icon: createIcon('#f97316','🌃',4)}).bindTooltip('수목원야시장',{direction:'top'}),
+                hotel: L.marker(spots.asiaHotel, {icon: createIcon('#8b5cf6','🏨',5)}).bindTooltip('아시아호텔 제주',{direction:'top'}),
+                nh: L.marker(spots.nohyeong, {icon: createIcon('#3b82f6','📷',1)}).bindTooltip('노형수퍼마켓',{direction:'top'}),
+                sc: L.marker(spots.sinchang, {icon: createIcon('#3b82f6','🌊',2)}).bindTooltip('신창풍차해안도로',{direction:'top'}),
+                sg: L.marker(spots.sagye, {icon: createIcon('#3b82f6','🏖️',3)}).bindTooltip('사계해안',{direction:'top'}),
+                ad: L.marker(spots.andeok, {icon: createIcon('#3b82f6','🏞️',4)}).bindTooltip('안덕계곡',{direction:'top'}),
+                gs: L.marker(spots.gunsan, {icon: createIcon('#3b82f6','⛰️',5)}).bindTooltip('군산오름',{direction:'top'}),
+                cm: L.marker(spots.camellia, {icon: createIcon('#e11d48','🌺',6)}).bindTooltip('카멜리아힐',{direction:'top'}),
+                sr: L.marker(spots.saryeoni, {icon: createIcon('#22c55e','🌲',1)}).bindTooltip('사려니숲길',{direction:'top'}),
+                gt: L.marker(spots.greentea, {icon: createIcon('#22c55e','🍵',2)}).bindTooltip('녹차동굴',{direction:'top'})
             };
 
             const paths = {
-                d1: L.polyline([spots.airport, spots.ihotewoo, spots.daycare, spots.sumokwon, spots.asiaHotel], {color:'#f97316', weight:5, opacity:0.8}),
-                d2: L.polyline([spots.asiaHotel, spots.nohyeong, spots.sinchang, spots.sagye, spots.andeok, spots.gunsan, spots.camellia, spots.asiaHotel], {color:'#3b82f6', weight:5, opacity:0.8}),
-                d3: L.polyline([spots.asiaHotel, spots.saryeoni, spots.greentea, spots.airport], {color:'#22c55e', weight:5, opacity:0.8, dashArray:'10,10'})
+                d1: L.polyline([spots.airport,spots.ihotewoo,spots.daycare,spots.sumokwon,spots.asiaHotel],{color:'#f97316',weight:5,opacity:0.8}),
+                d2: L.polyline([spots.asiaHotel,spots.nohyeong,spots.sinchang,spots.sagye,spots.andeok,spots.gunsan,spots.camellia,spots.asiaHotel],{color:'#3b82f6',weight:5,opacity:0.8}),
+                d3: L.polyline([spots.asiaHotel,spots.saryeoni,spots.greentea,spots.airport],{color:'#22c55e',weight:5,opacity:0.8,dashArray:'10,10'})
             };
 
             dayLayers = {
-                day1: L.layerGroup([paths.d1, markers.apt, markers.iho, markers.dc, markers.sm, markers.hotel]),
-                day2: L.layerGroup([paths.d2, markers.hotel, markers.nh, markers.sc, markers.sg, markers.ad, markers.gs, markers.cm]),
-                day3: L.layerGroup([paths.d3, markers.hotel, markers.sr, markers.gt, markers.apt])
+                day1: L.layerGroup([paths.d1,markers.apt,markers.iho,markers.dc,markers.sm,markers.hotel]),
+                day2: L.layerGroup([paths.d2,markers.hotel,markers.nh,markers.sc,markers.sg,markers.ad,markers.gs,markers.cm]),
+                day3: L.layerGroup([paths.d3,markers.hotel,markers.sr,markers.gt,markers.apt])
             };
-
             filterMap('all');
         }
 
-        // 원칙3: 선 애니메이션
         function animatePath(layer) {
             const path = layer._path;
             if(!path) return;
             const len = path.getTotalLength();
             path.style.strokeDasharray = len;
             path.style.strokeDashoffset = len;
-            path.getBoundingClientRect(); // 강제 리플로우
+            path.getBoundingClientRect();
             path.style.transition = 'stroke-dashoffset 2s ease-in-out';
             path.style.strokeDashoffset = '0';
-            setTimeout(() => { path.style.transition = ''; }, 2000); // 초기화
+            setTimeout(() => { path.style.transition = ''; }, 2000);
         }
 
         window.filterMap = function(day) {
             if(!currentMap) return;
-            
-            // 버튼 상태 UI
             document.querySelectorAll('.map-btn').forEach(btn => {
-                btn.classList.remove('bg-slate-800', 'text-white');
-                btn.classList.add('bg-white', 'text-slate-600');
+                btn.classList.remove('bg-slate-800','text-white');
+                btn.classList.add('bg-white','text-slate-600');
             });
-            document.getElementById('btn-map-'+day).classList.replace('bg-white', 'bg-slate-800');
-            document.getElementById('btn-map-'+day).classList.replace('text-slate-600', 'text-white');
-
-            // 원칙4: 탭전환 시 clearLayers 선행
+            const activeBtn = document.getElementById('btn-map-'+day);
+            if(activeBtn) {
+                activeBtn.classList.replace('bg-white','bg-slate-800');
+                activeBtn.classList.replace('text-slate-600','text-white');
+            }
             Object.values(dayLayers).forEach(l => currentMap.removeLayer(l));
-            
             let targetBounds;
             if (day === 'all') {
                 Object.values(dayLayers).forEach(l => l.addTo(currentMap));
                 targetBounds = L.latLngBounds(Object.values(allSpots));
             } else {
                 dayLayers[day].addTo(currentMap);
-                
-                // 원칙3 적용: 폴리라인 찾아서 애니메이션 실행
                 dayLayers[day].eachLayer(layer => {
-                    if(layer instanceof L.Polyline) {
-                        setTimeout(() => animatePath(layer), 100);
-                    }
+                    if(layer instanceof L.Polyline) setTimeout(() => animatePath(layer), 100);
                 });
-                
-                // 마커 리렌더링 효과를 위해 제거 후 다시 추가
                 dayLayers[day].eachLayer(layer => {
                     if(layer instanceof L.Marker) {
                         const originalIcon = layer.options.icon;
-                        layer.setIcon(L.divIcon({className: 'hidden'}));
+                        layer.setIcon(L.divIcon({className:'hidden'}));
                         setTimeout(() => layer.setIcon(originalIcon), 50);
                     }
                 });
-
                 targetBounds = dayLayers[day].getBounds ? dayLayers[day].getBounds() : L.latLngBounds(Object.values(allSpots));
             }
-
-            // 원칙2: fitBounds 직후 안정화
-            currentMap.fitBounds(targetBounds, { padding: [50, 50], maxZoom: 13 });
-            setTimeout(() => {
-                // 필요 시 추가 로직 안정화 대기
-            }, 300);
+            currentMap.fitBounds(targetBounds, { padding:[50,50], maxZoom:13 });
+            setTimeout(() => {}, 300);
         };
 
         const io = new IntersectionObserver((entries)=>{
